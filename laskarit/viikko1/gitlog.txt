@@ -1,0 +1,102 @@
+commit 42dc047c26fae4027d60adda1bf23bd6ef5330aa
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Fri Nov 4 13:19:48 2022 +0200
+
+    file2 uudelleennimetty, file1 poistettu
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit a93a617ae97725099e9c19c1082f95d8f33224d5
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Fri Nov 4 13:14:29 2022 +0200
+
+    tiedostoja-kansio lisätty
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 88b778d43898dbf7d6d119d45c65a2b7c309bba8
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Fri Nov 4 13:01:30 2022 +0200
+
+    uudelleen nimetty
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 63108262cb818bfb9f5d977e3b2b702c5cc73f6c
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Fri Nov 4 12:59:22 2022 +0200
+
+    toinen poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 63442bd2cf808a9459404afc35dde0f4fecdaa5a
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Fri Nov 4 12:54:45 2022 +0200
+
+    tekstiä karsittu, jutu lisätty
+
+ tiedosto.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 6a6477320e13e20e0ccd681fab3051f3e8eb9ea5
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Fri Nov 4 12:53:44 2022 +0200
+
+    tekstiä kopioitu
+
+ tiedosto.txt | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+commit 22cfa7ee3517bfc2a70d95d969cb1d4b402259b5
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Thu Nov 3 20:53:23 2022 +0200
+
+    kansio lisätty
+
+ stuff/juttu.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 567a1d9895ecb733bfe58db3df928943f7bba9f0
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Thu Nov 3 20:52:25 2022 +0200
+
+    toista muokattu
+
+ toinen.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 164d64bdf954d2d4a7c13c6f27178b87a4bc660e
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Thu Nov 3 20:51:59 2022 +0200
+
+    kolmas luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 3e76405c9c378ba466f6049172e606010689b981
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Thu Nov 3 20:50:07 2022 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 964fda3fa7e7cccb6ddd92d9fa1aa0d393959c68
+Author: Eero Antikainen <eero.antikainen@helsinki.fi>
+Date:   Thu Nov 3 20:48:06 2022 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
