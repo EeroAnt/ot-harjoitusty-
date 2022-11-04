@@ -11,3 +11,5 @@ _Tämä on kursivoitua tekstiä_
 [gitlog.txt](https://github.com/EeroAnt/ot-harjoitusty-/blob/main/laskarit/viikko1/gitlog.txt)
 
 Tämä on muutos
+
+Uusi muutos
