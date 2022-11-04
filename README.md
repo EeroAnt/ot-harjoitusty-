@@ -9,3 +9,5 @@ _Tämä on kursivoitua tekstiä_
 [komentorivi.txt](https://github.com/EeroAnt/ot-harjoitusty-/blob/main/laskarit/viikko1/komentorivi.txt)
 
 [gitlog.txt](https://github.com/EeroAnt/ot-harjoitusty-/blob/main/laskarit/viikko1/gitlog.txt)
+
+Tämä on muutos
