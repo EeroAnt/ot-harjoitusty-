@@ -8,9 +8,9 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
 
 - Perustoiminnot
 
-  - Cuben (eli kokoelman) luominen
+  - Cuben (eli kokoelman) luominen ja tallentaminen. csv-tiedosto? Luokka-olio, joka ladataan ja tallennetaan csv:ksi?
 
-  - Cubeen korttien lisääminen ja poistaminen (duplikaattien kohdalla saisi nousta errori)
+  - Cubeen korttien lisääminen ja poistaminen (duplikaattien kohdalla saisi nousta errori).
 
   - Cuben tarkastelu
 
@@ -22,9 +22,13 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
 
   - Filtteröinti- ja sorttaustoiminnalisuuksia. Mahdollisuus tulostaa listana tekstitiedostoon?
 
-  - Myöhemmin korteille oma näkymä ohjelmaan (tekstimuodossa infot, kuva scryfallista)
+  - Myöhemmin korteille oma näkymä ohjelmaan (tekstimuodossa infot, kuva scryfallista, ehkä joskus kaikki kortin tiedot haetaan jostain manuaalisen syöttämisen sijasta)
+
+  - Mahdollisuus lisätä kortteja listasta
 
   - Korteille omistajuus talteen
+
+  - Korteille versiotieto (mikä painos, onko kiiltokortti)
 
   - Lisättäville ja poistetuille korteille välitila, joista näkyisi omistajan
 
