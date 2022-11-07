@@ -2,7 +2,7 @@
 
 ### Dokumentaatio
 
- - [Vaatimusmäärittely]()
+ - [Vaatimusmäärittely](https://github.com/EeroAnt/ot-harjoitusty-/blob/main/MTG-Cube-App/dokumentaatio/vaatimusmaarittely.md)
 
 
 
