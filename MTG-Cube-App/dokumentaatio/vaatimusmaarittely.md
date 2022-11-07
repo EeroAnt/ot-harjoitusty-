@@ -10,7 +10,9 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
 
   - Cuben (eli kokoelman) luominen
 
-  - Cubeen korttien lisääminen ja poistaminen
+  - Cubeen korttien lisääminen ja poistaminen (duplikaattien kohdalla saisi nousta errori)
+
+  - Cuben tarkastelu
 
 - Lisätoiminnot
 
