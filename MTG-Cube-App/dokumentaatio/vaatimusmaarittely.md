@@ -27,3 +27,5 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
   - Lisättäville ja poistetuille korteille välitila, joista näkyisi omistajan
 
   - Draftin generointi? Eli arpoa x määrä y kortin kokoisia pinoja annetuilla kriteereillä ilman toistoja ja tallentaa ne yhteen tai erillisiin tiedostoihin
+
+Tätä kaikkea en kurssin aikana ajatellut saada valmiiksi, mutta ajatuksena olisi tehdä tämä omaan käyttöön ja sen vuoksi askarrella enempi.
