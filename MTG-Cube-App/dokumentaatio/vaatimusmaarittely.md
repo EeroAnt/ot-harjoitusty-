@@ -16,14 +16,14 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
 
   - Korteille infoja (alkuun riittänee filtteröinti- ja sorttauskriteereihin tarvittavat ja linkki esim scryfalliin jokaiselle kortille)
 
+  - Yksittäisen kortin haku
+
   - Filtteröinti- ja sorttaustoiminnalisuuksia. Mahdollisuus tulostaa listana tekstitiedostoon?
 
   - Myöhemmin korteille oma näkymä ohjelmaan (tekstimuodossa infot, kuva scryfallista)
 
-  - jotain
+  - Korteille omistajuus talteen
 
-  - jotain
+  - Lisättäville ja poistetuille korteille välitila, joista näkyisi omistajan
 
-  - jotain
-
-  - Draftin generointi? Eli arpoa x määrä y kortin kokoisia pinoja ilman toistoja ja tallentaa ne yhteen tai erillisiin tiedostoihin
+  - Draftin generointi? Eli arpoa x määrä y kortin kokoisia pinoja annetuilla kriteereillä ilman toistoja ja tallentaa ne yhteen tai erillisiin tiedostoihin
