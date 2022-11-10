@@ -1,12 +1,11 @@
 ```mermaid
 sequenceDiagram
-  actor User
+  participant Main
   participant Machine
   participant FuelTank
   participant Engine
-  User->>Machine: call kone = Machine()
+  Main->>Machine: call kone = Machine()
   Machine->>FuelTank: kone._tank = FuelTank()
-  FuelTank->>FuelTank: kone._tank.fuel_contents = 0
   activate FuelTank
   Machine->>FuelTank: kone._tank.fill(40)
   deactivate FuelTank
