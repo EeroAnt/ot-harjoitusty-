@@ -18,5 +18,7 @@ sequenceDiagram
   Machine->>Engine: kone._engine.start()
   activate FuelTank
   Engine->>FuelTank: kone._engine._fuel_tank.consume(5)
+  FuelTank->>FuelTank: kone._tank.fuel_contents -= 5
+  deactivate FuelTank
   
 ```
