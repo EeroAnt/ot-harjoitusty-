@@ -1,8 +1,8 @@
 ```mermaid
  classDiagram
-      Pelilauta "1" --- "*" Ruutu
-      Pelinappula "1" --- "1" Ruutu
-      Pelaaja "1" --- "1" Pelinappula
+      Pelilauta "1" -- "*" Ruutu
+      Pelinappula "1" -- "1" Ruutu
+      Pelaaja "1" -- "1" Pelinappula
  
       class Pelilauta{
       }
