@@ -34,7 +34,7 @@ sequenceDiagram
   lippu_luukku->>lippu_luukku: uusi_kortti.arvo = 0
   lippu_luukku->>kallen_kortti: kallen_kortti = uusi_kortti
   Main->>rautatietori: rautatietori.lataa_arvoa(kallen_kortti, 3)
-  activate kallen_kortti
   rautatietori->>kallen_kortti: kallen_kortti.kasvata_arvoa(3)
+  activate kallen_kortti
   deactivate kallen_kortti
 ```
