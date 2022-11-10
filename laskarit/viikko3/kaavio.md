@@ -11,8 +11,8 @@
       Ruutu -- Toiminto
       Sattuma -- Sattumakortti
       Yhteismaa -- Yhteismaakortti
-      Sattumakortti -- Toiminta
-      Yhteismaakortti -- Toiminta
+      Sattumakortti -- Toiminto
+      Yhteismaakortti -- Toiminto
       Katu "1" -- "4" Talo
       Katu "1" -- "1" Hotelli
       Katu -- Pelaaja
