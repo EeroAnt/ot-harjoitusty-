@@ -16,6 +16,11 @@
       Katu "1" -- "4" Talo
       Katu "1" -- "1" Hotelli
       Katu -- Pelaaja
+      Ruutu -- Aloitusruutu
+      Ruutu -- Vankila
+      Ruutu -- Sattuma
+      Ruutu -- Katu
+      Ruutu -- Yhteismaa
       class Monopoli
       class Pelilauta
       class Ruutu
