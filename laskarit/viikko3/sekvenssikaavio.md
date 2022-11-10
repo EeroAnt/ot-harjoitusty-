@@ -8,6 +8,7 @@ sequenceDiagram
   Machine->>FuelTank: kone._tank = FuelTank()
   FuelTank->>FuelTank: kone._tank.fuel_contents = 0
   Machine->>FuelTank: kone._tank.fill(40)
+  activate FuelTank
   FuelTank->>FuelTank: kone._tank.fuel_contents += 40  
   TodoService->>TodoRepository: create(todo)
   TodoRepository-->>TodoService: todo
