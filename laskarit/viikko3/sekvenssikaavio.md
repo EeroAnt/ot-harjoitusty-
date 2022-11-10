@@ -15,4 +15,8 @@ sequenceDiagram
   Engine->>Machine: kone._engine._fuel_tank = kone._tank
   deactivate Engine
   Main->>Machine: call kone.drive
+  Machine->>Engine: kone._engine.start()
+  activate FuelTank
+  Engine->>FuelTank: kone._engine._fuel_tank.consume(5)
+  
 ```
