@@ -26,11 +26,15 @@ sequenceDiagram
   laitehallinto->>laitehallinto: laitehallinto.lukija.append(bussi244)
   deactivate laitehallinto
   Main->>lippu_luukku: lippu_luukku = Kioski()
-  Main->>lippu_luukku: kallen_kortti = lippu_luukku.osta_matkakortti("Kalle")
-  lippu_luukku->>kallen_kortti: uusi_kortti = Matkakortti("Kalle")
-  kallen_kortti->>kallen_kortti: uusi_kortti.omistaja = "kalle"
-  kallen_kortti->>kallen_kortti: uusi_kortti.pvm = 0
-  kallen_kortti->>kallen_kortti: uusi_kortti.kk = 0
-  kallen_kortti->>kallen_kortti: uusi_kortti.arvo = 0
-
+  lippu_luukku->>lippu_luukku: kallen_kortti = lippu_luukku.osta_matkakortti("Kalle")
+  lippu_luukku->>lippu_luukku: uusi_kortti = Matkakortti("Kalle")
+  lippu_luukku->>lippu_luukku: uusi_kortti.omistaja = "kalle"
+  lippu_luukku->>lippu_luukku: uusi_kortti.pvm = 0
+  lippu_luukku->>lippu_luukku: uusi_kortti.kk = 0
+  lippu_luukku->>lippu_luukku: uusi_kortti.arvo = 0
+  lippu_luukku->>kallen_kortti: kallen_kortti = uusi_kortti
+  Main->>rautatietori: rautatietori.lataa_arvoa(kallen_kortti, 3)
+  activate kallen_kortti
+  rautatietori->>kallen_kortti: kallen_kortti.kasvata_arvoa(3)
+  deactivate kallen_kortti
 ```
