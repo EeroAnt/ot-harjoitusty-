@@ -25,7 +25,7 @@
       class Pelilauta
       class Ruutu
       class Pelinappula
-      class Pelaajat{
+      class Pelaaja{
           rahaa
       }
       class Nopat
