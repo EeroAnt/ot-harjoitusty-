@@ -1,5 +1,6 @@
 ```mermaid
 sequenceDiagram
   participant Main
-  Main->*laitehallinto: message 
+  Main->Main: joo
+  Create laitehallinto 
 ```
