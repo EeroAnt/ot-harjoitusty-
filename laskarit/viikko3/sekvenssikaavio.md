@@ -4,7 +4,7 @@ sequenceDiagram
   participant Machine
   participant FuelTank
   participant Engine
-  User->>Machine call kone = Machine()
+  User->>Machine: call kone = Machine()
   UI->>TodoService: create_todo("vie roskat")
   TodoService->>todo: Todo("vie roskat", kalle)
   TodoService->>TodoRepository: create(todo)
