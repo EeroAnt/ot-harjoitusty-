@@ -36,5 +36,16 @@ sequenceDiagram
   Main->>rautatietori: rautatietori.lataa_arvoa(kallen_kortti, 3)
   rautatietori->>kallen_kortti: kallen_kortti.kasvata_arvoa(3)
   activate kallen_kortti
+  kallen_kortti->>kallen_kortti: kallen_kortti.arvo += 3
   deactivate kallen_kortti
+  Main->>ratikka6: ratikka6.osta_lippu(kallen_kortti, 0)
+  ratikka6->>kallen_kortti: kallen_kortti.arvo > 1.5
+  ratikka6->>kallen_kortti: kallen_kortti.vahenna_arvoa(1.5)
+  activate kallen_kortti
+  kallen_kortti->>kallen_kortti: kallen_kortti.arvo -= 1.5
+  deactivate kallen_kortti
+  ratikka6->>Main: True
+  Main->>bussi244: bussi244.osta_lippu(kallen_kortti, 2)
+  bussi244->>kallen_kortti: kallen_kortti.arvo < 3.5
+  bussi244->>Main: False
 ```
