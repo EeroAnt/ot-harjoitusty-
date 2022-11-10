@@ -16,6 +16,7 @@ sequenceDiagram
   activate laitehallinto
   Main->>laitehallinto: laitehallinto.lisaa_lataaja(rautatietori)
   laitehallinto->>laitehallinto: laitehallinto.lataajat.append(rautatietori)
+  deactivate laitehallinto
   activate laitehallinto
   Main->>laitehallinto: laitehallinto.lisaa_lukija(ratikka6)
   laitehallinto->>laitehallinto: laitehallinto.lukija.append(ratikka6)
