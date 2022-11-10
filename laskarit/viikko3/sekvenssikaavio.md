@@ -6,10 +6,11 @@ sequenceDiagram
   participant Engine
   Main->>Machine: call kone = Machine()
   Machine->>FuelTank: kone._tank = FuelTank()
-  activate FuelTank
   Machine->>FuelTank: kone._tank.fill(40)
+  activate FuelTank
+  FuelTank->>Machine: kone._tank.fuel_contents += 40  
+  FuelTank-->>Machine:
   deactivate FuelTank
-  FuelTank->>FuelTank: kone._tank.fuel_contents += 40  
   TodoService->>TodoRepository: create(todo)
   TodoRepository-->>TodoService: todo
   TodoService-->>UI: todo 
