@@ -10,6 +10,6 @@ sequenceDiagram
   rautatietori->rautatietori: rautatietori._lataajat = []
   rautatietori->rautatietori: rautatietori._lukijat = []
   Main->ratikka6: ratikka6 = Lukijalaite()
-  Main->ratikka6: bussi244 = Lukijalaite()
+  Main->>ratikka6: bussi244 = Lukijalaite()
    
 ```
