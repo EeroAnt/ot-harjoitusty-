@@ -13,16 +13,16 @@ sequenceDiagram
   Main->>rautatietori: rautatietori = Lataajalaite()
   Main->>ratikka6: ratikka6 = Lukijalaite()
   Main->>bussi244: bussi244 = Lukijalaite()
-  activate laitehallinto
   Main->>laitehallinto: laitehallinto.lisaa_lataaja(rautatietori)
+  activate laitehallinto
   laitehallinto->>laitehallinto: laitehallinto.lataajat.append(rautatietori)
   deactivate laitehallinto
-  activate laitehallinto
   Main->>laitehallinto: laitehallinto.lisaa_lukija(ratikka6)
+  activate laitehallinto
   laitehallinto->>laitehallinto: laitehallinto.lukija.append(ratikka6)
   deactivate laitehallinto
-  activate laitehallinto
   Main->>laitehallinto: laitehallinto.lisaa_lukija(bussi244)
+  activate laitehallinto
   laitehallinto->>laitehallinto: laitehallinto.lukija.append(bussi244)
   deactivate laitehallinto
   Main->>lippu_luukku: lippu_luukku = Kioski()
