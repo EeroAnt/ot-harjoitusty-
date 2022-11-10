@@ -3,15 +3,13 @@ sequenceDiagram
   actor User
   participant UI
   participant TodoService
-  participant UserRepository
-  participant matti
-  User->>UI: click "Create user" button
-  UI->>TodoService: create_user("matti", "matti123")
-  TodoService->>UserRepository: find_by_username("matti")
-  UserRepository-->>TodoService: None
-  TodoService->>matti: User("matti", "matti123")
-  TodoService->>UserRepository: create(matti)
-  UserRepository-->>TodoService: user
-  TodoService-->>UI: user
-  UI->>UI: show_todos_view()
+  participant TodoRepository
+  participant todo
+  User->>UI: click "Create"
+  UI->>TodoService: create_todo("vie roskat")
+  TodoService->>todo: Todo("vie roskat", kalle)
+  TodoService->>TodoRepository: create(todo)
+  TodoRepository-->>TodoService: todo
+  TodoService-->>UI: todo 
+  UI->>UI: initialize_todo_list()
 ```
