@@ -5,8 +5,10 @@ sequenceDiagram
   participant FuelTank
   participant Engine
   User->>Machine: call kone = Machine()
-  UI->>TodoService: create_todo("vie roskat")
-  TodoService->>todo: Todo("vie roskat", kalle)
+  Machine->>FuelTank: kone._tank = FuelTank()
+  FuelTank->>FuelTank: kone._tank.fuel_contents = 0
+  Machine->>FuelTank: kone._tank.fill(40)
+  FuelTank->>FuelTank: kone._tank.fuel_contents += 40  
   TodoService->>TodoRepository: create(todo)
   TodoRepository-->>TodoService: todo
   TodoService-->>UI: todo 
