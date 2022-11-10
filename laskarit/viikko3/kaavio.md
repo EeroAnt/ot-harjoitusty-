@@ -30,7 +30,7 @@
       Class Yhteismaa
       Class Asema
       Class Laitos
-      Class Katu{
+      class Katu{
           kadunnimi
           omistaja
       }
