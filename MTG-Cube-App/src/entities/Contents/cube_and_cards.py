@@ -1,19 +1,21 @@
 import requests
 import json
+import time
 
 class Cube:
     #Tämä luokka toimii yksittäisenä kokoelmana, johon voi tallettaa kortteja
     def __init__(self, name):
         self.name = name
         self.collection = []
+        self.card_names = []
 
     def add_card(self, name):
-        initial_load = CardData(name).card_dict       
-        if initial_load['name'] in self.collection:
-            print(f"{Card(name)} on jo cubessa")
+        initial_load = CardData(name).card_dict
+        if initial_load['name'] in self.card_names:
+            print(f"{initial_load['name']} on jo cubessa")
         else:
             self.collection.append(Card(initial_load['name']))
-
+            self.card_names.append(initial_load['name'])
     def __str__(self):
         return self.name
 
@@ -32,19 +34,17 @@ class CardData:
     def __init__(self, name):
         name_for_api = name.replace(" ","+")
         card_data = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
+        time.sleep(0.1)
         if card_data.status_code == 200:
-            self.card_dict = json.loads(jprint(card_data.json()))
-        else:
-            return False    
+            self.card_dict = json.loads(jprint(card_data.json()))  
 
 def card_test(name: str):
     name_for_api = name.replace(" ","+")
     response = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
+    time.sleep(0.1)
     if response.status_code == 200:
         return True
 
-# response = requests.get("https://api.scryfall.com/cards/named?exact=black+lotus")
-# print(response.status_code)
 
 
 def jprint(obj):
@@ -52,8 +52,7 @@ def jprint(obj):
     data = json.dumps(obj, sort_keys=True, indent=4)
     return data
     
-# print(jprint(response.json()))
-cube = Cube("any")
-cube.add_card("Black Lotus")
-for i in cube.collection:
-    print(i, i.cmc, i.type)
+# kuutio = Cube("kuutio")
+# kuutio.add_card("Mountain")
+# kuutio.add_card("Mountain")
+

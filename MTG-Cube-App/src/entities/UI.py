@@ -1,7 +1,6 @@
-import cube_and_cards
-import string
-import requests
-import json
+import Contents.cube_and_cards as cube_and_cards
+import Saved_Cubes.Saver_loader as saver
+import os
 
 INITIAL_ACTIONS = {
     1: "luo uusi cube",
@@ -11,10 +10,11 @@ INITIAL_ACTIONS = {
 }
 
 CUBE_ACTIONS = {
-    "1": "1 lisää kortti",
-    "2": "2 printtaa cube",
-    "9": "9 toita komennot",
-    "0": "0 lopeta"
+    1: "1 lisää kortti",
+    2: "2 printtaa cube",
+    3: "3 tallenna cube",
+    9: "9 toista komennot",
+    0: "0 lopeta"
 
 }
 
@@ -45,12 +45,30 @@ def cubeUI(cube: cube_and_cards.Cube):
             break
         if action == 1:
             name = input("Kortin nimi: ")
-            if cube_and_cards.card_test(name):
+            if cube_and_cards.card_test(name) == True:
                 cube.add_card(name)
             else:
                 print("Kortin nimellä haku ei onnistunut")
         if action == 2:
             for i in cube.collection:
                 print(i)
+        if action == 3:
+            if os.path.exists(f"src/entities/Saved_Cubes/{cube.name}.db"):
+                os.remove(f"src/entities/Saved_Cubes/{cube.name}.db")
+            saver.save(cube)
 
 initialUI()
+# os.remove("src/entities/Saved_Cubes/Pallo.db")
+# kuutio = cube_and_cards.Cube("Pallo")
+# kuutio.add_card("Black Lotus")
+# kuutio.add_card("vampiric tutor")
+# print(kuutio.collection)
+# saver.save(kuutio)
+# for i in kuutio.collection:
+#     print(i)
+# lataus = load("Pallo")
+# print(lataus)
+# print(type(lataus))
+# print(lataus.collection)
+# for i in lataus.collection:
+#     print(i)
