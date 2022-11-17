@@ -1,6 +1,8 @@
 import requests
 import json
 import time
+import sqlite3
+
 
 class Cube:
     #Tämä luokka toimii yksittäisenä kokoelmana, johon voi tallettaa kortteja
@@ -16,6 +18,7 @@ class Cube:
         else:
             self.collection.append(Card(initial_load['name']))
             self.card_names.append(initial_load['name'])
+
     def __str__(self):
         return self.name
 
@@ -36,7 +39,11 @@ class CardData:
         card_data = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
         time.sleep(0.1)
         if card_data.status_code == 200:
-            self.card_dict = json.loads(jprint(card_data.json()))  
+            self.card_dict = json.loads(jprint(card_data.json()))
+            db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
+            db.isolation_level = None   #                                                                                                                       name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri
+            db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[self.card_dict["name"], str(self.card_dict["colors"]),str(self.card_dict["color_identity"]),self.card_dict["cmc"],str(self.card_dict["mana_cost"]),self.card_dict["type_line"],str(self.card_dict["keywords"]),self.card_dict["oracle_text"],self.card_dict["image_uris"]["png"]])
+
 
 def card_test(name: str):
     name_for_api = name.replace(" ","+")
@@ -52,7 +59,5 @@ def jprint(obj):
     data = json.dumps(obj, sort_keys=True, indent=4)
     return data
     
-# kuutio = Cube("kuutio")
-# kuutio.add_card("Mountain")
-# kuutio.add_card("Mountain")
+
 

@@ -1,5 +1,5 @@
-import Contents.cube_and_cards as cube_and_cards
-import Saved_Cubes.Saver_loader as saver
+import cube_and_cards as cube_and_cards
+import Saver_loader as saver
 import os
 
 INITIAL_ACTIONS = {
@@ -54,8 +54,17 @@ def cubeUI(cube: cube_and_cards.Cube):
                 print(i)
         if action == 3:
             if os.path.exists(f"src/entities/Saved_Cubes/{cube.name}.db"):
-                os.remove(f"src/entities/Saved_Cubes/{cube.name}.db")
-            saver.save(cube)
+                confirmation = input("Tällä nimellä on jo cube olemassa. Haluatko varmasti tallentaa sen päälle? Y/n: ")
+                if confirmation == "Y":
+                    print("Tallennettu")
+                    os.remove(f"src/entities/Saved_Cubes/{cube.name}.db")
+                    saver.save(cube)
+                    print("Tallennettu")
+                else:
+                    print("Ei tallennettu")
+            else:
+                saver.save(cube)
+                print("Tallennettu")
 
 initialUI()
 # os.remove("src/entities/Saved_Cubes/Pallo.db")
