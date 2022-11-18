@@ -65,33 +65,26 @@ class CardData:
                 self.card_dict = json.loads(jprint(card_data.json()))
                 db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
                 db.isolation_level = None
-                if "oracle_text" in self.card_dict.keys():  #                                                                                                                       name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri
-                    db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
-                        self.card_dict["name"],
-                        str(self.card_dict["colors"]),
-                        str(self.card_dict["color_identity"]),
-                        self.card_dict["cmc"],
-                        str(self.card_dict["mana_cost"]),
-                        self.card_dict["type_line"],
-                        str(self.card_dict["keywords"]),
-                        self.card_dict["oracle_text"],
-                        self.card_dict["image_uris"]["png"]
-                        ])
+                oracle = ""
+                if "oracle_text" in self.card_dict.keys(): 
+                        oracle = self.card_dict["oracle_text"]
                 else:
-                    oracle = ""
                     for i in self.card_dict["card_faces"]:
                         oracle += i["oracle_text"] + "//"
-                    db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
-                        self.card_dict["name"],
-                        str(self.card_dict["colors"]),
-                        str(self.card_dict["color_identity"]),
-                        self.card_dict["cmc"],
-                        str(self.card_dict["mana_cost"]),
-                        self.card_dict["type_line"],
-                        str(self.card_dict["keywords"]),
-                        oracle,
-                        self.card_dict["image_uris"]["png"]
-                        ])
+                if "power" in self.card_dict.keys():
+                    power_toughness = str(self.card_dict["power"])+"/"+str(self.card_dict["toughness"])
+                    ###tästä jatketaan. uusi db.execute, jos on p/t ja toinen jos ei. myös pitää laajentaa korttien db:t tähän kanssa
+                db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
+                    self.card_dict["name"],
+                    str(self.card_dict["colors"]),
+                    str(self.card_dict["color_identity"]),
+                    self.card_dict["cmc"],
+                    str(self.card_dict["mana_cost"]),
+                    self.card_dict["type_line"],
+                    str(self.card_dict["keywords"]),
+                    oracle,
+                    self.card_dict["image_uris"]["png"]
+                    ])
 
 def card_test(name: str):
     db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
