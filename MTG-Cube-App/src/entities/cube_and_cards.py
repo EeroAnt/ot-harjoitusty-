@@ -39,7 +39,6 @@ class Card:
         if "p/t" in card_dict.keys():
             self.pt = card_dict["p/t"]
         
-
     def __str__(self):
         return self.name
 
@@ -65,10 +64,10 @@ class CardData:
             name_for_api = name.replace(" ","+")
             name_for_api = name_for_api.replace("/","")
             name_for_api = name_for_api.replace(",","")
-            card_data = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
+            card_data_api = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
             time.sleep(0.1)
-            if card_data.status_code == 200:
-                self.card_dict = json.loads(jprint(card_data.json()))
+            if card_data_api.status_code == 200:
+                self.card_dict = json.loads(jprint(card_data_api.json()))
                 db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
                 db.isolation_level = None
                 oracle = ""
