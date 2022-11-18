@@ -5,6 +5,7 @@ import os
 INITIAL_ACTIONS = {
     1: "luo uusi cube",
     2: "lataa vanha cube",
+    3: "luo cube tiedostosta",
     9: "toista komennot",
     0: "lopeta"
 }

@@ -57,24 +57,41 @@ class CardData:
             self.card_dict["image_uris"] = {"png":card_data[9]}
         else:
             name_for_api = name.replace(" ","+")
+            name_for_api = name_for_api.replace("/","")
+            name_for_api = name_for_api.replace(",","")
             card_data = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
             time.sleep(0.1)
             if card_data.status_code == 200:
                 self.card_dict = json.loads(jprint(card_data.json()))
                 db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
-                db.isolation_level = None   #                                                                                                                       name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri
-                db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
-                    self.card_dict["name"],
-                    str(self.card_dict["colors"]),
-                    str(self.card_dict["color_identity"]),
-                    self.card_dict["cmc"],
-                    str(self.card_dict["mana_cost"]),
-                    self.card_dict["type_line"],
-                    str(self.card_dict["keywords"]),
-                    self.card_dict["oracle_text"],
-                    self.card_dict["image_uris"]["png"]
-                    ])
-
+                db.isolation_level = None
+                if "oracle_text" in self.card_dict.keys():  #                                                                                                                       name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri
+                    db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
+                        self.card_dict["name"],
+                        str(self.card_dict["colors"]),
+                        str(self.card_dict["color_identity"]),
+                        self.card_dict["cmc"],
+                        str(self.card_dict["mana_cost"]),
+                        self.card_dict["type_line"],
+                        str(self.card_dict["keywords"]),
+                        self.card_dict["oracle_text"],
+                        self.card_dict["image_uris"]["png"]
+                        ])
+                else:
+                    oracle = ""
+                    for i in self.card_dict["card_faces"]:
+                        oracle += i["oracle_text"] + "//"
+                    db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
+                        self.card_dict["name"],
+                        str(self.card_dict["colors"]),
+                        str(self.card_dict["color_identity"]),
+                        self.card_dict["cmc"],
+                        str(self.card_dict["mana_cost"]),
+                        self.card_dict["type_line"],
+                        str(self.card_dict["keywords"]),
+                        oracle,
+                        self.card_dict["image_uris"]["png"]
+                        ])
 
 def card_test(name: str):
     db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
@@ -83,6 +100,8 @@ def card_test(name: str):
     if card_data != None:
         return True
     name_for_api = name.replace(" ","+")
+    name_for_api = name_for_api.replace("/","")
+    name_for_api = name_for_api.replace(",","")
     response = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
     time.sleep(0.1)
     if response.status_code == 200:
