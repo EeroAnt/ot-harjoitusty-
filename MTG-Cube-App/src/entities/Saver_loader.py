@@ -1,6 +1,6 @@
-
 import sqlite3
 import cube_and_cards
+import Card_lists.Card_list_lister as lister
 
 def save(s: cube_and_cards.Cube):
     db = sqlite3.connect(f"src/entities/Saved_Cubes/{s.name}.db")
@@ -32,6 +32,13 @@ def load(s: str):
             loaded_cube.add_card(i[1])
         return loaded_cube
 
+def load_from_list(name_of_cube, name_of_txt_file):
+    cube_from_txt_file = cube_and_cards.Cube(name_of_cube)
+    card_list = lister.lister(name_of_txt_file)
+    for i in card_list:
+        cube_from_txt_file.add_card(i)
+    return cube_from_txt_file
+
 
 #load("koff")
 # db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
@@ -39,3 +46,4 @@ def load(s: str):
 # db.execute("CREATE TABLE Cards (id INTEGER PRIMARY KEY, name TEXT, colors TEXT, color_identity TEXT, cmc INTEGER, mana_cost TEXT, type TEXT, keywords TEXT, oracle TEXT, image_uri TEXT );")
 
 # load("Pallo")
+load_from_list("testi","Testilista.txt")

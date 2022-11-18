@@ -28,12 +28,19 @@ def initialUI():
             print("Heippa!")
             break
         if action == 1:
-            nimi = input("Nimeä Cube: ")
-            uusi_cube = cube_and_cards.Cube(nimi)
-            cubeUI(uusi_cube)
+            name = input("Nimeä Cube: ")
+            new_cube = cube_and_cards.Cube(name)
+            cubeUI(new_cube)
         if action == 2:
-            nimi = input("Ladattava Cube: ")
-            cubeUI(saver.load(nimi))
+            name = input("Ladattava Cube: ")
+            cubeUI(saver.load(name))
+        if action == 3:
+            txt_file_name = input("Tiedostonimi, josta lista haetaan: ")
+            if os.path.exists(f"src/entities/Card_lists/{txt_file_name}"):
+                name_for_cube = input("Nimi luotavalle Cubelle: ")
+                cubeUI(saver.load_from_list(name_for_cube,txt_file_name))
+            else:
+                print("Tällä nimellä ei löytynyt listaa. Sisällytithän '.txt' syötteeseen?")
         if action == 9:
             for i in INITIAL_ACTIONS:
                 print(f"'{i}' : {INITIAL_ACTIONS[i]}")
