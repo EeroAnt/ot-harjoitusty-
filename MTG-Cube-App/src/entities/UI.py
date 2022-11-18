@@ -72,12 +72,14 @@ def cubeUI(cube: cube_and_cards.Cube):
 # kuutio.add_card("Black Lotus")
 # kuutio.add_card("vampiric tutor")
 # kuutio.add_card("island")
+# kuutio.add_card("plains")
+# kuutio.add_card("forest")
 # print(kuutio.collection)
 # saver.save(kuutio)
 # for i in kuutio.collection:
 #     print(i)
-# # lataus = load("Pallo")
-# # print(lataus)
+# lataus = load("Pallo")
+# print(lataus)
 # print(type(lataus))
 # print(lataus.collection)
 # for i in lataus.collection:

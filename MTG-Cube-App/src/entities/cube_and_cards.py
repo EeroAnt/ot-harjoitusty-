@@ -41,27 +41,47 @@ class Card:
 
 class CardData:
     def __init__(self, name):
-        name_for_api = name.replace(" ","+")
-        card_data = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
-        time.sleep(0.1)
-        if card_data.status_code == 200:
-            self.card_dict = json.loads(jprint(card_data.json()))
-            db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
-            db.isolation_level = None   #                                                                                                                       name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri
-            db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
-                self.card_dict["name"],
-                str(self.card_dict["colors"]),
-                str(self.card_dict["color_identity"]),
-                self.card_dict["cmc"],
-                str(self.card_dict["mana_cost"]),
-                self.card_dict["type_line"],
-                str(self.card_dict["keywords"]),
-                self.card_dict["oracle_text"],
-                self.card_dict["image_uris"]["png"]
-                ])
+        self.card_dict = {}
+        db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
+        db.isolation_level = None
+        card_data = db.execute("SELECT * FROM Cards WHERE name LIKE ?", [name]).fetchone()
+        if card_data != None:
+            self.card_dict["name"] = card_data[1]
+            self.card_dict["colors"] = card_data[2]
+            self.card_dict["color_identity"] = card_data[3]
+            self.card_dict["cmc"] = card_data[4]
+            self.card_dict["mana_cost"] = card_data[5]
+            self.card_dict["type_line"] = card_data[6]
+            self.card_dict["keywords"] = card_data[7]
+            self.card_dict["oracle_text"] = card_data[8]
+            self.card_dict["image_uris"] = {"png":card_data[9]}
+        else:
+            name_for_api = name.replace(" ","+")
+            card_data = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
+            time.sleep(0.1)
+            if card_data.status_code == 200:
+                self.card_dict = json.loads(jprint(card_data.json()))
+                db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
+                db.isolation_level = None   #                                                                                                                       name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri
+                db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?);",[
+                    self.card_dict["name"],
+                    str(self.card_dict["colors"]),
+                    str(self.card_dict["color_identity"]),
+                    self.card_dict["cmc"],
+                    str(self.card_dict["mana_cost"]),
+                    self.card_dict["type_line"],
+                    str(self.card_dict["keywords"]),
+                    self.card_dict["oracle_text"],
+                    self.card_dict["image_uris"]["png"]
+                    ])
 
 
 def card_test(name: str):
+    db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
+    db.isolation_level = None
+    card_data = db.execute("SELECT * FROM Cards WHERE name LIKE ?", ["island"]).fetchone()
+    if card_data != None:
+        return True
     name_for_api = name.replace(" ","+")
     response = requests.get(f"https://api.scryfall.com/cards/named?exact={name_for_api}")
     time.sleep(0.1)
@@ -75,5 +95,3 @@ def jprint(obj):
     data = json.dumps(obj, sort_keys=True, indent=4)
     return data
     
-
-
