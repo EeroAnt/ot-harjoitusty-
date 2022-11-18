@@ -66,8 +66,8 @@ def cubeUI(cube: cube_and_cards.Cube):
                 saver.save(cube)
                 print("Tallennettu")
 
-initialUI()
-# os.remove("src/entities/Saved_Cubes/Pallo.db")
+# initialUI()
+os.remove("src/entities/Saved_Cubes/Pallo.db")
 # kuutio = cube_and_cards.Cube("Pallo")
 # kuutio.add_card("Black Lotus")
 # kuutio.add_card("vampiric tutor")
@@ -75,8 +75,8 @@ initialUI()
 # saver.save(kuutio)
 # for i in kuutio.collection:
 #     print(i)
-# lataus = load("Pallo")
-# print(lataus)
+# # lataus = load("Pallo")
+# # print(lataus)
 # print(type(lataus))
 # print(lataus.collection)
 # for i in lataus.collection:
