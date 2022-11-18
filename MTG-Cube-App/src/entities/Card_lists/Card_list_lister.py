@@ -10,4 +10,4 @@ def lister(filename):
     list_to_return.pop()
     return list_to_return
 
-lister("Testilista.txt")
+# lister("Testilista.txt")
