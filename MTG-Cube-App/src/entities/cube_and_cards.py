@@ -79,7 +79,6 @@ class CardData:
                         oracle += i["oracle_text"] + "//"
                 if "power" in self.card_dict.keys():
                     self.card_dict["p/t"] = str(self.card_dict["power"])+"/"+str(self.card_dict["toughness"])
-                    ###tästä jatketaan. uusi db.execute, jos on p/t ja toinen jos ei. myös pitää laajentaa korttien db:t tähän kanssa
                     db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri, p_t) VALUES (?,?,?,?,?,?,?,?,?,?);",[
                         self.card_dict["name"],
                         str(self.card_dict["colors"]),

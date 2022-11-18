@@ -48,4 +48,4 @@ def load_from_list(name_of_cube, name_of_txt_file):
 # db.execute("CREATE TABLE Cards (id INTEGER PRIMARY KEY, name TEXT, colors TEXT, color_identity TEXT, cmc INTEGER, mana_cost TEXT, type TEXT, keywords TEXT, oracle TEXT, image_uri TEXT, p_t TEXT );")
 
 # load("Pallo")
-load_from_list("testi","Testilista.txt")
+# load_from_list("testi","Testilista.txt")
