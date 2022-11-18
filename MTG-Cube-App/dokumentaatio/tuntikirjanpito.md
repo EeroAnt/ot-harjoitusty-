@@ -10,3 +10,4 @@
 |12.11|3|Koitin ensiksi painia pickle-moduulin kanssa, jos olisin siihen saanut talteen kokoelmat, mutta päädyinkin sql-tietokantoihin. Nyt toimii tallennus|
 |17.11|1|Korjasin kansiorakennetta lähinnä saadakseni omat moduulit toimimaan. Loin .db tiedoston, johon kerään ladatut kortit, jotta samoja kortteja ei tarvitse hakea aina uudestaam apin kautta|
 |18.11|3|Tekstitiedostosta, joissa korttien nimit listattuna, cuben luominen onnistuu. Korttien tallentaminen omaan tietokantaan, jotta ei tarvitse aina tehdä api-kutsua, toimii|
+|18.11|2|Testit aloitettu|
