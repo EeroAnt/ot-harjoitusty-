@@ -30,6 +30,9 @@ def initialUI():
             nimi = input("Nimeä Cube: ")
             uusi_cube = cube_and_cards.Cube(nimi)
             cubeUI(uusi_cube)
+        if action == 2:
+            nimi = input("Ladattava Cube: ")
+            cubeUI(saver.load(nimi))
         if action == 9:
             for i in INITIAL_ACTIONS:
                 print(f"'{i}' : {INITIAL_ACTIONS[i]}")
@@ -66,8 +69,9 @@ def cubeUI(cube: cube_and_cards.Cube):
                 saver.save(cube)
                 print("Tallennettu")
 
-# initialUI()
+initialUI()
 # os.remove("src/entities/Saved_Cubes/Pallo.db")
+
 # kuutio = cube_and_cards.Cube("Pallo")
 # kuutio.add_card("Black Lotus")
 # kuutio.add_card("vampiric tutor")
