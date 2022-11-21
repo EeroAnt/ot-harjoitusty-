@@ -7,7 +7,7 @@ def save(s: cube_and_cards.Cube):
     db.isolation_level = None
     db.execute("CREATE TABLE Cards (id INTEGER PRIMARY KEY, name TEXT, colors TEXT, color_identity TEXT, cmc INTEGER, mana_cost TEXT, type TEXT, keywords TEXT, oracle TEXT, image_uri TEXT, p_t TEXT);") #Alusta cube
     for i in s.collection:
-        db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?,?);",[
+        db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri, p_t) VALUES (?,?,?,?,?,?,?,?,?,?);",[
                 i.name,
                 str(i.colors),
                 str(i.color_id),
