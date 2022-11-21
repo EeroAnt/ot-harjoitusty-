@@ -2,7 +2,7 @@ import os
 import sqlite3
 
 def build():
-    if os.path.exists(f"src/entities/fetched_cards/fetched_cards"):
+    if os.path.exists(f"src/entities/fetched_cards/fetched_cards.db"):
         pass
     else:
         db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
