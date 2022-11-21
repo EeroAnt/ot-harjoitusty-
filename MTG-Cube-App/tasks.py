@@ -13,3 +13,6 @@ def coverage_raport(ctx):
     ctx.run("coverage run --branch -m pytest src", pty=True)
     ctx.run("coverage html", pty=True)
     
+@task
+def build(ctx):
+    ctx.run("python3 src/entities/build.py", pty=True)

@@ -23,7 +23,7 @@ class Cube:
         return self.name
 
 class Card:
-    #Tämä vastaa yksittäistä korttia. Kortille määritellään alustavasti nimi, mutta myöhemmin lisää ominaisuuksia
+    #Tämä vastaa yksittäistä korttia.
     def __init__(self, name:str):
         self.name = name
         card_dict = CardData(name).card_dict
@@ -43,6 +43,7 @@ class Card:
         return self.name
 
 class CardData:
+    #Tähän haetaan raaka, josta korttiluokka osaa sitten hakea tarvitsemansa tiedot. Ensisijaisesti tarkastatetaan aiemmin haettujen korttien tietokanta fetched_cards.db, ja jos sieltä ei löydy, tehdään api-kutsu.
     def __init__(self, name):
         self.card_dict = {}
         db = sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")
