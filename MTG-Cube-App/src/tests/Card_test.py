@@ -1,6 +1,6 @@
 import unittest
 from entities.cube_and_cards import Card, Cube
-from unittest.mock import patch
+#from unittest.mock import patch
 
 
 class TestCards(unittest.TestCase):
