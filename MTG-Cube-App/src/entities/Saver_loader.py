@@ -5,7 +5,7 @@ import Card_lists.Card_list_lister as lister
 def save(s: cube_and_cards.Cube):
     db = sqlite3.connect(f"src/entities/Saved_Cubes/{s.name}.db")
     db.isolation_level = None
-    db.execute("CREATE TABLE Cards (id INTEGER PRIMARY KEY, name TEXT, colors TEXT, color_identity TEXT, cmc INTEGER, mana_cost TEXT, type TEXT, keywords TEXT, oracle TEXT, image_uri TEXT, p/t TEXT);") #Alusta cube
+    db.execute("CREATE TABLE Cards (id INTEGER PRIMARY KEY, name TEXT, colors TEXT, color_identity TEXT, cmc INTEGER, mana_cost TEXT, type TEXT, keywords TEXT, oracle TEXT, image_uri TEXT, p_t TEXT);") #Alusta cube
     for i in s.collection:
         db.execute("INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, type, keywords, oracle, image_uri) VALUES (?,?,?,?,?,?,?,?,?,?);",[
                 i.name,
