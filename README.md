@@ -28,3 +28,11 @@ Testit ajetaan
 Testikattavuusraportti luodaan komennolla
 
  - poetry run invoke coverage-raport
+
+
+Manuaaliseen testailuun ja tutkimiseen:
+
+scryfall.com sivustolla on painike "random card", jos haluaa testata eri korttien lataamista
+mountain, black lotus, elvish piper on myös luultavasti toimivia esimerkkejä. Välttämättä jokaisen kortin lataaminen ei vielä toimi, koska voi olla hassuja erikoismerkkejä nimissä
+Korttien nimeäminen taitaa olla ainoa tekstisyöte, joka ei ole case sensitive, listoista ladattaessa on muistettava .txt pääte, mutta tallennettuja cubeja haettaessa tulee .db jättää syötteestä pois. Tästä myöhemmin tehdään käyttäjäystävällisempi
+testilista.txt löytyy jo jos haluaa testata listan lataamista
