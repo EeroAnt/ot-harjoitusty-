@@ -11,3 +11,5 @@
 |17.11|1|Korjasin kansiorakennetta lähinnä saadakseni omat moduulit toimimaan. Loin .db tiedoston, johon kerään ladatut kortit, jotta samoja kortteja ei tarvitse hakea aina uudestaam apin kautta|
 |18.11|3|Tekstitiedostosta, joissa korttien nimit listattuna, cuben luominen onnistuu. Korttien tallentaminen omaan tietokantaan, jotta ei tarvitse aina tehdä api-kutsua, toimii|
 |18.11|2|Testit aloitettu|
+|21.11|3|rakennettu build.py, joilla alustaa ohjelma toimivaksi repon kopioinnin jälkeen, readme päivitetty, kansiorakennetta korjattu ja siitä syntyviä ongelmia fiksattu, changelog luotu|
+|28.11|6|pylint aloitettu ja suodattimet rakennettu. Suodattimet tulostavat .html tiedoston, jossa sisältö jotenkin tarkkailtavissa|
