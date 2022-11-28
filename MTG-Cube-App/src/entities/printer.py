@@ -14,7 +14,7 @@ def print_list(name_of_cube:Cube):
         "</tr>")
         for i in name_of_cube.collection:
             file.write("<tr>\n"+
-            f"<td>{i.name}</td>\n"+
+            f'<td><span>{i.name}</span><img src="fetched_cards/{i.img_location}"/></td>\n'+
             f"<td>{i.colors}</td>\n"+
             f"<td>{i.color_id}</td>\n"+
             f"<td>{i.mana_cost}</td>\n"+

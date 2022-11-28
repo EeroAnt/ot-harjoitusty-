@@ -27,7 +27,7 @@ def initialUI():
     for i in INITIAL_ACTIONS:
         print(f"'{i}' : {INITIAL_ACTIONS[i]}")
     while True:
-        action = 3#int(input("Anna komento: "))
+        action = int(input("Anna komento: "))
         if action == 0:
             print("Heippa!")
             break
@@ -39,7 +39,7 @@ def initialUI():
             name = input("Ladattava Cube: ")
             cubeUI(saver.load(name))
         if action == 3:
-            txt_file_name = "Testilista.txt"#input("Tiedostonimi, josta lista haetaan: ")
+            txt_file_name = input("Tiedostonimi, josta lista haetaan: ")
             if os.path.exists("src/entities/card_lists/"+txt_file_name):
                 name_for_cube = input("Nimi luotavalle Cubelle: ")
                 cubeUI(saver.load_from_list(name_for_cube, txt_file_name))
