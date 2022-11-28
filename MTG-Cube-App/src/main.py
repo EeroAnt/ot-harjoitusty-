@@ -1,3 +1,3 @@
-import entities.UI as UI
+from entities import UI
 
 UI.initialUI()

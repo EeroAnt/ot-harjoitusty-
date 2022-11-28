@@ -9,7 +9,7 @@ class TestCards(unittest.TestCase):
         self.non_color_spell = Card("Well of Knowledge")
 
     def test_card_str(self):
-        self.assertEqual(str(self.colored_creature),"Spike Rogue")
+        self.assertEqual(str(self.colored_creature), "Spike Rogue")
 
     def test_colored_creature_attributes(self):
         self.assertEqual([
@@ -23,7 +23,7 @@ class TestCards(unittest.TestCase):
             self.colored_creature.text,
             self.colored_creature.img_uri,
             self.colored_creature.pt
-        ],[
+        ], [
             "Spike Rogue",
             "['G']",
             "['G']",
@@ -34,8 +34,8 @@ class TestCards(unittest.TestCase):
             "Spike Rogue enters the battlefield with two +1/+1 counters on it.\n{2}, Remove a +1/+1 counter from Spike Rogue: Put a +1/+1 counter on target creature.\n{2}, Remove a +1/+1 counter from a creature you control: Put a +1/+1 counter on Spike Rogue.",
             "https://cards.scryfall.io/png/front/f/0/f0d9b671-344b-460d-8f65-d65129db91c3.png?1562089260",
             "0/0"
-            ])
-    
+        ])
+
     def test_non_color_spell_attributes(self):
         self.assertEqual([
             self.non_color_spell.name,
@@ -48,7 +48,7 @@ class TestCards(unittest.TestCase):
             self.non_color_spell.text,
             self.non_color_spell.img_uri,
             self.non_color_spell.pt
-        ],[
+        ], [
             "Well of Knowledge",
             "[]",
             "[]",
@@ -71,20 +71,21 @@ class TestCards(unittest.TestCase):
 class TestCube(unittest.TestCase):
     def setUp(self) -> None:
         self.cube = Cube("TestCube")
-    
+
     def test_cube_named_right(self):
-        self.assertEqual(str(self.cube),"TestCube")
-    
+        self.assertEqual(str(self.cube), "TestCube")
+
     def test_empty_cube_is_empty(self):
-        self.assertEqual([self.cube.collection,self.cube.card_names],[[],[]])
-    
+        self.assertEqual(
+            [self.cube.collection, self.cube.card_names], [[], []])
+
     def test_adding_cards_works(self):
         self.cube.add_card("forest")
-        self.assertEqual([self.cube.card_names, len(self.cube.collection)], [["Forest"],1])
+        self.assertEqual([self.cube.card_names, len(
+            self.cube.collection)], [["Forest"], 1])
 
     def test_adding_duplicate_cards_doesnt_work(self):
         self.cube.add_card("forest")
         self.cube.add_card("forest")
-        self.assertEqual([self.cube.card_names, len(self.cube.collection)], [["Forest"],1])
-
-    
+        self.assertEqual([self.cube.card_names, len(
+            self.cube.collection)], [["Forest"], 1])

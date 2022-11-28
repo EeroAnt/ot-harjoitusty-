@@ -1,6 +1,8 @@
 import cube_and_cards as cube_and_cards
-import Saver_loader as saver
+import saver_loader as saver
 import os
+import printer
+import filter
 
 INITIAL_ACTIONS = {
     1: "luo uusi cube",
@@ -14,16 +16,18 @@ CUBE_ACTIONS = {
     1: "1 lisää kortti",
     2: "2 printtaa cube",
     3: "3 tallenna cube",
+    4: "4 suodata cube",
     9: "9 toista komennot",
     0: "0 lopeta"
 
 }
 
+
 def initialUI():
     for i in INITIAL_ACTIONS:
         print(f"'{i}' : {INITIAL_ACTIONS[i]}")
     while True:
-        action = int(input("Anna komento: "))
+        action = 3#int(input("Anna komento: "))
         if action == 0:
             print("Heippa!")
             break
@@ -35,12 +39,13 @@ def initialUI():
             name = input("Ladattava Cube: ")
             cubeUI(saver.load(name))
         if action == 3:
-            txt_file_name = input("Tiedostonimi, josta lista haetaan: ")
-            if os.path.exists(f"src/entities/Card_lists/{txt_file_name}"):
+            txt_file_name = "Testilista.txt"#input("Tiedostonimi, josta lista haetaan: ")
+            if os.path.exists("src/entities/card_lists/"+txt_file_name):
                 name_for_cube = input("Nimi luotavalle Cubelle: ")
-                cubeUI(saver.load_from_list(name_for_cube,txt_file_name))
+                cubeUI(saver.load_from_list(name_for_cube, txt_file_name))
             else:
                 print("Tällä nimellä ei löytynyt listaa. Sisällytithän '.txt' syötteeseen?")
+                break
         if action == 9:
             for i in INITIAL_ACTIONS:
                 print(f"'{i}' : {INITIAL_ACTIONS[i]}")
@@ -61,11 +66,11 @@ def cubeUI(cube: cube_and_cards.Cube):
             else:
                 print("Kortin nimellä haku ei onnistunut")
         if action == 2:
-            for i in cube.collection:
-                print(i)
+            printer.print_list(cube)
         if action == 3:
             if os.path.exists(f"src/entities/Saved_Cubes/{cube.name}.db"):
-                confirmation = input("Tällä nimellä on jo cube olemassa. Haluatko varmasti tallentaa sen päälle? Y/n: ")
+                confirmation = input(
+                    "Tällä nimellä on jo cube olemassa. Haluatko varmasti tallentaa sen päälle? Y/n: ")
                 if confirmation == "Y":
                     print("Tallennettu")
                     os.remove(f"src/entities/Saved_Cubes/{cube.name}.db")
@@ -76,6 +81,8 @@ def cubeUI(cube: cube_and_cards.Cube):
             else:
                 saver.save(cube)
                 print("Tallennettu")
+        if action == 4:
+            filter.filter_cube(cube)
 
 initialUI()
 # os.remove("src/entities/Saved_Cubes/Pallo.db")
