@@ -33,6 +33,12 @@ Card luokka tekee CardDatan tiedosta Card-olion, joilla oleelliset tiedot attrib
       }
 ```
 
+Toiminnallisuus käy vähän monimutkaisemmaksi. main.py käynnistää UI:n, joka kysyy ladataanko tallennettu cube, luodaanko uusi cube tyhjästä vai listasta (.txt-tiedosto). Tämän jälkeen siirrytään valitun cuben kanssa CubeUI:hin ja sieltä voi tällä hetkellä:
+ - lisätä kortteja
+ - tallentaa cuben omana .db tiedostona (joka on sitten ladattavissa myöhemmin)
+ - tulostaa cubesta .html tiedosto sisällön tarkastelua varten (kuvat tähän mukaan joskus)
+ - suodattaa cuben sisältöä ja suodatetun sisällön voi tulostaa
+
 ## Pakkauskaavio
 
 
