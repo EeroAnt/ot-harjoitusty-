@@ -33,4 +33,18 @@ Card luokka tekee CardDatan tiedosta Card-olion, joilla oleelliset tiedot attrib
       }
 ```
 
-Pakkauskaavio
+##Pakkauskaavio
+
+
+```mermaid
+ classDiagram
+     Main --> UI
+     UI --> CubeUI
+     UI --> Saver_loader
+     Saver_loader -- CubeUI
+     class Saver_loader{
+       save
+       load
+       load_from_file
+}
+```
