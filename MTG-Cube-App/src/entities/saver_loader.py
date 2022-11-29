@@ -1,9 +1,11 @@
 import sqlite3
 from entities.cube_and_cards import Cube
 import entities.card_lists.card_list_lister as lister
-
+import os
 
 def save(name_of_cube: Cube):
+    if os.path.exists(f"src/entities/Saved_Cubes/{name_of_cube.name}.db"):
+        os.remove(f"src/entities/Saved_Cubes/{name_of_cube.name}.db")
     d_b = sqlite3.connect(f"src/entities/Saved_Cubes/{name_of_cube.name}.db")
     d_b.isolation_level = None
     # Alusta cube

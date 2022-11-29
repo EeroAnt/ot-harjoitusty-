@@ -12,6 +12,7 @@ Pack Rat
 Hydroblast
 Mizzium Skin
 Opt
+Ei validi kortti
 Ponder
 Preordain
 Serum Visions
