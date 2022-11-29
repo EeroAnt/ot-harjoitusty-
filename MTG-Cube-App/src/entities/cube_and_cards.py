@@ -13,11 +13,12 @@ class Cube:
 
     def add_card(self, name):
         initial_load = CardData(name).card_dict
-        if initial_load['name'] in self.card_names:
-            print(f"{initial_load['name']} on jo cubessa")
-        else:
-            self.collection.append(Card(initial_load['name']))
-            self.card_names.append(initial_load['name'])
+        if 'name' in initial_load.keys():
+            if initial_load['name'] in self.card_names:
+                print(f"{initial_load['name']} on jo cubessa")
+            else:
+                self.collection.append(Card(initial_load['name']))
+                self.card_names.append(initial_load['name'])
 
     def __str__(self):
         return self.name
@@ -39,6 +40,8 @@ class Card:
         self.p_t = ""
         if "p/t" in card_dict.keys():
             self.p_t = card_dict["p/t"]
+        name_for_img = name.replace(" ", "+").replace("/", "").replace(",", "")
+        self.name_for_img = name_for_img
 
     def __str__(self):
         return self.name
@@ -76,7 +79,7 @@ class CardData:
             time.sleep(0.1)
             if card_data_api.status_code == 200:
                 self.card_dict = json.loads(jprint(card_data_api.json()))
-                image = requests.get(self.card_dict["image_uris"]["png"],allow_redirects=True)
+                image = requests.get(self.card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
                 open("src/entities/fetched_cards/"+name_for_api+".png", 'wb').write(image.content)
                 d_b = sqlite3.connect("src/entities/fetched_cards/fetched_cards.db")
                 d_b.isolation_level = None

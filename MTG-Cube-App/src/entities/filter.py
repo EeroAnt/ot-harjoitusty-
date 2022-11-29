@@ -1,10 +1,10 @@
 import os
 import sqlite3
-import cube_and_cards
-import printer
-import saver_loader
+from entities.cube_and_cards import Cube
+from entities.printer import print_list
+from entities.saver_loader import save
 
-def filter_cube(cube:cube_and_cards.Cube):
+def filter_cube(cube:Cube):
     refresh_database(cube)
     name_of_list = cube.name
     instructions()
@@ -53,10 +53,10 @@ def filter_cube(cube:cube_and_cards.Cube):
     for i in list_of_filters:
         if i != "":
             name_of_list += i
-    filtered_cube = cube_and_cards.Cube(name_of_list)
+    filtered_cube = Cube(name_of_list)
     for i in cube.card_names:
         filtered_cube.add_card(i)
-    printer.print_list(filtered_cube)
+    print_list(filtered_cube)
 
 def instructions():
     print("Ohjelma kysyy kaikki suodattimet läpi ja tulostaa suodatetun listan html-tiedostona")
@@ -67,10 +67,10 @@ def instructions():
     print("Power- ja toughness-arvoilla suodattamallla hakuun jää vain olentoja")
     print("Useamman tyypin etsimiseen, erottele hakusanat pilkulla")
 
-def refresh_database(cube:cube_and_cards.Cube):
+def refresh_database(cube:Cube):
     os.remove("src/entities/Saved_Cubes/temp.db")
     cube.name = "temp"
-    saver_loader.save(cube)
+    save(cube)
 
 def color_filter(colors:str, name):
     d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
@@ -83,7 +83,7 @@ def color_filter(colors:str, name):
     for i in range(len(colors)):
         list_of_variables.append(f"%{colors[i]}%")
     filtered_list = d_b.execute(string_to_execute, list_of_variables).fetchall()
-    new_cube = cube_and_cards.Cube(name)
+    new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
     return new_cube
@@ -103,7 +103,7 @@ def color_id_filter(color_id:str, name):
     for i in range(len(not_valid_colors)):
         list_of_variables.append(f"%{not_valid_colors[i]}%")
     filtered_list = d_b.execute(string_to_execute, list_of_variables).fetchall()
-    new_cube = cube_and_cards.Cube(name)
+    new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
     return new_cube
@@ -119,7 +119,7 @@ def cmc_filter(cmc_query: str, cmc_value: str, name):
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc >= ?;", [cmc_value]).fetchall()
     if cmc_query == 3:
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc = ?;", [cmc_value]).fetchall()
-    new_cube = cube_and_cards.Cube(name)
+    new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
     return new_cube
@@ -143,7 +143,7 @@ def type_filter(types:str,name):
             string_to_execute += ",?"
         string_to_execute += ";"
         filtered_list = d_b.execute(string_to_execute,list_of_variables).fetchall()
-    new_cube = cube_and_cards.Cube(name)
+    new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
     return new_cube
@@ -153,7 +153,7 @@ def oracle_filter(oracle:str,name):
     d_b.isolation_level = None
     filtered_list = d_b.execute("SELECT From Cards WHERE oracle LIKE ?",
         ["%"+oracle+"%"]).fetchall()
-    new_cube = cube_and_cards.Cube(name)
+    new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
     return new_cube
