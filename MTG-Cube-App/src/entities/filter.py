@@ -5,76 +5,64 @@ from entities.printer import print_list
 from entities.saver_loader import save
 
 def filter_cube(cube:Cube):
-    refresh_database(cube)
-    name_of_list = cube.name
-    instructions()
-    list_of_filters = []
-    symbol_dict = {
-        "1": "<=",
-        "2": ">=",
-        "3": "="
-    }
-    colors = input("Suodata väreillä (W,B,G,U,R): ")
-    color_id = input("Suodata väri-identiteetillä (W,B,G,U,R): ")
-    cmc_query = input("Mana-arvosuodatuksen tyyppi ('1':enintään, '2': vähintään, '3':tasan): ")
-    if cmc_query in ["1","2","3"]:
-        cmc_value = input("Anna arvo (kokonaisluku): ")
-        list_of_filters.append(f",manavalue{symbol_dict[cmc_query]}{cmc_value}")
-    types = input("Suodata korttityypeillä tai -alatyypeillä: ")
-    oracle = input("Suodata tekstillä: ")
-    power_query = input("Power-arvon suodatustyyppi ('1':enintään, '2': vähintään, '3':tasan): ")
-    if power_query in ["1","2","3"]:
-        power_value = input("Suodata power-arvolla: ")
-        list_of_filters.append(f",power{symbol_dict[power_query]}{power_value}")
-    toughness_query = input("Toughness-arvon suodatustyyppi"+
-        " ('1':enintään, '2': vähintään, '3':tasan): ")
-    if toughness_query in ["1","2","3"]:
-        toughness_value = input("Suodata toughness-arvolla: ")
-        list_of_filters.append(f",toughness{symbol_dict[toughness_query]}{toughness_value}")
-    if colors != "":
-        list_of_filters.append(",colors:"+colors)
-        cube = color_filter(colors, name_of_list)
-        refresh_database(cube)
-    if color_id != "":
-        list_of_filters.append(",color_id:"+color_id)
-        cube = color_id_filter(color_id, name_of_list)
-        refresh_database(cube)
-    if cmc_query != "":
-        cube = cmc_filter(cmc_query, cmc_value, name_of_list)
-        refresh_database(cube)
-    if types != "":
-        list_of_filters.append(",types:"+types)
-        cube = type_filter(types, name_of_list)
-        refresh_database(cube)
-    if oracle != "":
-        list_of_filters.append(oracle)
-        cube = oracle_filter(oracle, name_of_list)
-        refresh_database(cube)
-    for i in list_of_filters:
-        if i != "":
-            name_of_list += i
-    filtered_cube = Cube(name_of_list)
-    for i in cube.card_names:
-        filtered_cube.add_card(i)
-    print_list(filtered_cube)
-
+    not_filtered_cube = cube
+    cube = refresh_database(cube)
+    while True:
+        instructions()
+        commands = {
+            1 : "'1': värillä",
+            2 : "'2': väri-identiteetillä",
+            3 : "'3': mana-arvolla",
+            4 : "'4': tyypeillä",
+            5 : "'5': tekstillä",
+            6 : "'6': power-arvolla",
+            7 : "'7': toughness-arvolla",
+            9 : "'9': tulosta suodatettu lista",
+            0 : "'0': palaa"
+        }
+        for i in commands:
+            print(commands[i])
+        action = int(input("Anna komento: "))
+        if action == 1:
+            cube = color_filter(cube.name)
+        if action == 2:
+            cube = color_id_filter(cube.name)
+        if action == 3:
+            cube = cmc_filter(cube.name)
+        if action == 4:
+            cube = type_filter(cube.name)
+        if action == 5:
+            cube = oracle_filter(cube.name)
+        if action == 6:
+            cube = power_filter(cube.name)
+        if action == 7:
+            cube = toughness_filter(cube.name)
+        if action == 9:
+            print_list(cube)
+        if action == 0:
+            print("Palataan")
+            return not_filtered_cube
+    
 def instructions():
     print("Ohjelma kysyy kaikki suodattimet läpi ja tulostaa suodatetun listan html-tiedostona")
     print("Jos et halua käyttää jotain suodatinta, jatka Enterillä")
     print("Väreillä suodattaminen vaatii, että kortista löytyy jokin syötetyistä väreistä")
     print("Väri-identiteetillä suodattaminen vaatii, ettei kortin väri-"+
         "identiteettiin sisälly mitään väriä syötettyjen värien lisäksi")
-    print("Power- ja toughness-arvoilla suodattamallla hakuun jää vain olentoja")
-    print("Useamman tyypin etsimiseen, erottele hakusanat pilkulla")
+    #print("Power- ja toughness-arvoilla suodattamallla hakuun jää vain olentoja")
+    print("Useamman tyypin etsimiseen, erottele hakusanat pilkulla\n")
+    print("Suodatetaanko:\n")
 
 def refresh_database(cube:Cube):
     os.remove("src/entities/Saved_Cubes/temp.db")
     cube.name = "temp"
     save(cube)
+    return cube
 
-def color_filter(colors:str, name):
+def color_filter(name):
     d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
     d_b.isolation_level = None
+    colors = input("Suodata väreillä (W,B,G,U,R): ")
     string_to_execute = "SELECT * From Cards WHERE colors LIKE ?"
     for i in range(len(colors)-1):
         string_to_execute += "or colors LIKE ?"
@@ -86,11 +74,13 @@ def color_filter(colors:str, name):
     new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
+    new_cube = refresh_database(new_cube)
     return new_cube
 
-def color_id_filter(color_id:str, name):
+def color_id_filter(name):
     d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
     d_b.isolation_level = None
+    color_id = input("Suodata väri-identiteetillä (W,B,G,U,R): ")
     not_valid_colors = "WURGB"
     for i in color_id:
         if i in not_valid_colors:
@@ -108,7 +98,10 @@ def color_id_filter(color_id:str, name):
         new_cube.add_card(i[1])
     return new_cube
 
-def cmc_filter(cmc_query: str, cmc_value: str, name):
+def cmc_filter(name):
+    cmc_query = input("Mana-arvosuodatuksen tyyppi ('1':enintään, '2': vähintään, '3':tasan): ")
+    if cmc_query in ["1","2","3"]:
+        cmc_value = input("Anna arvo (kokonaisluku): ")
     cmc_query = int(cmc_query)
     cmc_value = int(cmc_value)
     d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
@@ -122,9 +115,11 @@ def cmc_filter(cmc_query: str, cmc_value: str, name):
     new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
+    new_cube =refresh_database(new_cube)
     return new_cube
 
-def type_filter(types:str,name):
+def type_filter(name):
+    types = input("Suodata korttityypeillä tai -alatyypeillä: ")
     if "," in types:
         list_of_types = types.split(",")
     else:
@@ -146,9 +141,11 @@ def type_filter(types:str,name):
     new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
+    new_cube = refresh_database(new_cube)
     return new_cube
 
-def oracle_filter(oracle:str,name):
+def oracle_filter(name):
+    oracle = input("Suodata tekstillä: ")
     d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     filtered_list = d_b.execute("SELECT From Cards WHERE oracle LIKE ?",
@@ -156,4 +153,18 @@ def oracle_filter(oracle:str,name):
     new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])
+    new_cube = refresh_database(new_cube)
     return new_cube
+
+def power_filter(name):
+    print("Tämä ominaisuus tulossa myöhemmin")
+    # power_query = input("Power-arvon suodatustyyppi ('1':enintään, '2': vähintään, '3':tasan): ")
+    # if power_query in ["1","2","3"]:
+    #     power_value = input("Suodata power-arvolla: ")
+
+def toughness_filter(name):
+    print("Tämä ominaisuus tulossa myöhemmin")
+    # toughness_query = input("Toughness-arvon suodatustyyppi"+
+    #     " ('1':enintään, '2': vähintään, '3':tasan): ")
+    # if toughness_query in ["1","2","3"]:
+    #     toughness_value = input("Suodata toughness-arvolla: ")

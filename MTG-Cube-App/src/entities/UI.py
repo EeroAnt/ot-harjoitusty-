@@ -74,7 +74,7 @@ def cubeUI(cube: cube_and_cards.Cube):
                 saver.save(cube)
                 print("Tallennettu")
         if action == 4:
-            filter.filter_cube(cube)
+            cube = filter.filter_cube(cube)
 
 # os.remove("src/entities/Saved_Cubes/Pallo.db")
 

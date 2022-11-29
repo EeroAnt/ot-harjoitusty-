@@ -1,10 +1,11 @@
 from entities.cube_and_cards import Cube
 
 def print_list(name_of_cube:Cube):
-    with open(f"src/entities/Printed_lists/{name_of_cube}.html","w",encoding='UTF-8') as file:
+    name_list = input("Nimeä tuloste: ")
+    with open(f"src/entities/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
         file.write("<!DOCTYPE html>\n<html>"+
         '<head><link rel="stylesheet" href="style.css"></head>\n'+
-        "\n<body>\n<h1>"+name_of_cube.name+"</h1>\n<section>\n<table>\n")
+        "\n<body>\n<h1>"+name_list+"</h1>\n<section>\n<table>\n")
         file.write("<tr>\n"+
         "<th >Card Name</th>\n"+
         "<th>Colors</th>\n"+
