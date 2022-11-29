@@ -20,8 +20,8 @@ def filter_cube(cube:Cube):
             9 : "'9': tulosta suodatettu lista",
             0 : "'0': palaa"
         }
-        for i in commands:
-            print(commands[i])
+        for i in commands.items():
+            print(i)
         action = int(input("Anna komento: "))
         if action == 1:
             cube = color_filter(cube.name)
@@ -34,15 +34,15 @@ def filter_cube(cube:Cube):
         if action == 5:
             cube = oracle_filter(cube.name)
         if action == 6:
-            cube = power_filter(cube.name)
+            power_filter()
         if action == 7:
-            cube = toughness_filter(cube.name)
+            toughness_filter()
         if action == 9:
             print_list(cube)
         if action == 0:
             print("Palataan")
             return not_filtered_cube
-    
+
 def instructions():
     print("Ohjelma kysyy kaikki suodattimet läpi ja tulostaa suodatetun listan html-tiedostona")
     print("Jos et halua käyttää jotain suodatinta, jatka Enterillä")
@@ -156,13 +156,13 @@ def oracle_filter(name):
     new_cube = refresh_database(new_cube)
     return new_cube
 
-def power_filter(name):
+def power_filter():
     print("Tämä ominaisuus tulossa myöhemmin")
     # power_query = input("Power-arvon suodatustyyppi ('1':enintään, '2': vähintään, '3':tasan): ")
     # if power_query in ["1","2","3"]:
     #     power_value = input("Suodata power-arvolla: ")
 
-def toughness_filter(name):
+def toughness_filter():
     print("Tämä ominaisuus tulossa myöhemmin")
     # toughness_query = input("Toughness-arvon suodatustyyppi"+
     #     " ('1':enintään, '2': vähintään, '3':tasan): ")

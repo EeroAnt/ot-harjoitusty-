@@ -79,7 +79,8 @@ class CardData:
             time.sleep(0.1)
             if card_data_api.status_code == 200:
                 self.card_dict = json.loads(jprint(card_data_api.json()))
-                image = requests.get(self.card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
+                image = requests.get(
+                        self.card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
                 open("src/entities/fetched_cards/"+name_for_api+".png", 'wb').write(image.content)
                 d_b = sqlite3.connect("src/entities/fetched_cards/fetched_cards.db")
                 d_b.isolation_level = None
