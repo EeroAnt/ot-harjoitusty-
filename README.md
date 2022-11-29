@@ -1,5 +1,9 @@
 # MTG-Cuben HallinnointiApp
 
+Sovelluksen tarkoitus on helpottaa hallinnoida omaa tietynlaista korttikokoelmaa, cubea. Tavoitteena on pystyä listaamaan kortit mielekkäästi tarkasteluun ja tarvittaessa suodattamaan listoja. Kokoelman muokkaaminen (niin kasvattaminen kuin pienentäminen) on tarpeen myös.
+
+Kortteja voi lisätä yksittäisenä tai listana .txt-tiedoston avulla. Uusista korteista tehdään api-kutsu scryfall.com-sivulle ja sieltä haetaan relevantit tiedot ja kuva. Tiedot tallennetaan fetched_cards.db tiedostoon ja kuvat samaiseen kansioon. Cuben "tulostaminen" tuottaa html-sivun, johon listautuu cuben, mahdollisesti suodatettuna, sisältö taulukoituna muutamalla tiedolla.
+
 ### Dokumentaatio
 
  - [Vaatimusmäärittely](https://github.com/EeroAnt/ot-harjoitusty-/blob/main/MTG-Cube-App/dokumentaatio/vaatimusmaarittely.md)
