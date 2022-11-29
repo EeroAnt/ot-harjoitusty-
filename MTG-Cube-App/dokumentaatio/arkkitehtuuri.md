@@ -43,7 +43,7 @@ Card luokka tekee CardDatan tiedosta Card-olion, joilla oleelliset tiedot attrib
      UI --> Saver_loader
      Saver_loader -- CubeUI
      Saver_loader -- Saved_Cubes
-     CubeUI --> Card
+     CubeUI <|--|> Card
      Card --> CardData
      CubeUI --> filter
      CubeUI --> printer
@@ -57,6 +57,9 @@ Card luokka tekee CardDatan tiedosta Card-olion, joilla oleelliset tiedot attrib
 }
      class CardData{
        card_test()
+}
+     class Cube{
+       add_card()
 }
      class filter{
        color_filter()
