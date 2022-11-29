@@ -31,7 +31,7 @@ Testit ajetaan
 
 Testikattavuusraportti luodaan komennolla
 
- - poetry run invoke coverage-raport
+ - poetry run invoke coverage-report
 
 
 Manuaaliseen testailuun ja tutkimiseen:
