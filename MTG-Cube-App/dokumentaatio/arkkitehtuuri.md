@@ -42,14 +42,14 @@ Card luokka tekee CardDatan tiedosta Card-olion, joilla oleelliset tiedot attrib
      UI --> CubeUI
      UI --> Saver_loader
      Saver_loader -- CubeUI
-     Saver_loader -- /Saved_Cubes
+     Saver_loader -- Saved_Cubes
      CubeUI --> Card
      Card --> CardData
      CubeUI --> filter
      CubeUI --> printer
      filter --> printer
-     CardData --> /fetched_cards
-     printer --> /Printed_lists
+     CardData --> fetched_cards
+     printer --> Printed_lists
      class Saver_loader{
        save()
        load()
