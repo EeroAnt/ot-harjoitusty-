@@ -20,7 +20,7 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
 
   - Yksittäisen kortin haku (eip)
 
-  - Filtteröinti- ja sorttaustoiminnalisuuksia. Mahdollisuus tulostaa listana tekstitiedostoon? (jep)
+  - Filtteröinti- ja sorttaustoiminnalisuuksia. Mahdollisuus tulostaa listana tekstitiedostoon? (filtteröinti osittain, sorttaus ei vielä)
 
   - Myöhemmin korteille oma näkymä ohjelmaan (tekstimuodossa infot, kuva scryfallista, ehkä joskus kaikki kortin tiedot haetaan jostain manuaalisen syöttämisen sijasta) (eip)
 
