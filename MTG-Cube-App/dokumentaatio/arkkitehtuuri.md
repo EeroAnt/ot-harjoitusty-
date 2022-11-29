@@ -65,4 +65,11 @@ Card luokka tekee CardDatan tiedosta Card-olion, joilla oleelliset tiedot attrib
        type_filter()
        text_filter()
 }
+     class fetched_cards{
+       fetched_cards.db
+       .png files
+}
+     class Printed_lists{
+       .html files
+}
 ```
