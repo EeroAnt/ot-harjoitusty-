@@ -29,7 +29,6 @@ def print_list(name_of_cube:Cube):
         for i in name_of_cube.collection:
             file.write(f'<img src="../fetched_cards/{i.name_for_img}.png"/>\n')
         file.write("</aside>")
-
         file.write("</body>\n</html>")
 
 # def print_from_db(name_of_cube:str):
