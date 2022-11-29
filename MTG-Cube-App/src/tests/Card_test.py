@@ -3,6 +3,7 @@ from entities.cube_and_cards import Card, Cube
 from entities.saver_loader import save, load, load_from_list
 import entities.UI
 import os
+import entities.filter as filter
 
 #from unittest.mock import patch
 
@@ -108,3 +109,11 @@ class TestSavingAndLoading(unittest.TestCase):
     def test_loading_from_db(self):
         load_test_cube = load("TestCube")
         self.assertEqual(load_test_cube.card_names, ['Blood Scrivener', 'Bloodthrone Vampire', 'Burglar Rat', 'Caligo Skin-Witch', 'Dauthi Horror', 'Dauthi Slayer', 'Dregscape Zombie', 'Dusk Legion Zealot', 'Gnawing Zombie', 'Golgari Thug', 'Pack Rat', 'Hydroblast', 'Mizzium Skin', 'Opt', 'Ponder', 'Preordain', 'Serum Visions', 'Sleight of Hand', 'String of Disappearances', 'Stubborn Denial', 'Swan Song', 'Anafenza, Kin-Tree Spirit', 'Eight-and-a-Half-Tails'])
+
+
+class TestFitlering(unittest.TestCase):
+    def setUp(self):
+        self.cube = load_from_list("TestCube","Testilista.txt")
+    
+    def test_color_filter(self):
+        filter.color_filter(self.cube.name)
