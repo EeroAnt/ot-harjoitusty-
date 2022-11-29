@@ -12,4 +12,5 @@
 - Cuben sisältöä voi suodattaa ja suodatetusta tai suodattamattomasta cubesta saa hmtl-tulosteen
 - Kortin hakeminen apikutsulla hakee myös png-kuvan kortista talteen. Se on aika iso (yli 1mb), joten saatan vaihtaa kevyempään. Toki testaillessa varmaan riittänee muutama kymmenen korttia ja omaan käyttöön taas ei niin väliä.
 - pylint otettu käyttöön ja suurinosa erheistä on korjattu. Jeesiä tarvitaan loppuihin.
+- Tekstitiedostosta luodut Cubet sietävät huonoja rivejä ja prosessi printtaa listan riveistä, joita ei saatu cubeen lisättyä.
 
