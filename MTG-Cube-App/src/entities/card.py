@@ -1,7 +1,7 @@
 import sqlite3
-import requests
 import time
 import json
+import requests
 
 class Card:
     # Tämä vastaa yksittäistä korttia.

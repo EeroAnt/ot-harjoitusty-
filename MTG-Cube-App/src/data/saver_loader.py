@@ -1,7 +1,7 @@
 import sqlite3
+import os
 from entities.cube import Cube
 import card_list_text_files.card_list_text_file_handler as lister
-import os
 
 def save(name_of_cube: Cube):
     if os.path.exists(f"src/data/Saved_Cubes/{name_of_cube.name}.db"):
