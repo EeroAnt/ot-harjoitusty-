@@ -1,5 +1,5 @@
 import unittest
-import entities.card as Card
+from entities.card import Card
 
 #from unittest.mock import patch
 
