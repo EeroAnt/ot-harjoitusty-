@@ -1,28 +1,7 @@
-import json
-import time
 import sqlite3
 import requests
-
-
-class Cube:
-    # Tämä luokka toimii yksittäisenä kokoelmana, johon voi tallettaa kortteja
-    def __init__(self, name):
-        self.name = name
-        self.collection = []
-        self.card_names = []
-
-    def add_card(self, name):
-        initial_load = CardData(name).card_dict
-        if 'name' in initial_load.keys():
-            if initial_load['name'] in self.card_names:
-                print(f"{initial_load['name']} on jo cubessa")
-            else:
-                self.collection.append(Card(initial_load['name']))
-                self.card_names.append(initial_load['name'])
-
-    def __str__(self):
-        return self.name
-
+import time
+import json
 
 class Card:
     # Tämä vastaa yksittäistä korttia.
@@ -53,7 +32,7 @@ class CardData:
     # fetched_cards.db, ja jos sieltä ei löydy, tehdään api-kutsu.
     def __init__(self, name):
         self.card_dict = {}
-        d_b = sqlite3.connect("src/entities/fetched_cards/fetched_cards.db")
+        d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
         d_b.isolation_level = None
         card_data = d_b.execute("SELECT * FROM Cards WHERE name LIKE ?", [name]).fetchone()
         if card_data is not None:
@@ -81,8 +60,8 @@ class CardData:
                 self.card_dict = json.loads(jprint(card_data_api.json()))
                 image = requests.get(
                         self.card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
-                open("src/entities/fetched_cards/"+name_for_api+".png", 'wb').write(image.content)
-                d_b = sqlite3.connect("src/entities/fetched_cards/fetched_cards.db")
+                open("src/data/fetched_cards/"+name_for_api+".png", 'wb').write(image.content)
+                d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
                 d_b.isolation_level = None
                 oracle = ""
                 if "oracle_text" in self.card_dict.keys():
@@ -127,7 +106,7 @@ class CardData:
 
 
 def card_test(name: str):
-    d_b = sqlite3.connect("src/entities/fetched_cards/fetched_cards.db")
+    d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
     d_b.isolation_level = None
     card_data = d_b.execute(
         "SELECT * FROM Cards WHERE name LIKE ?", [name]).fetchone()

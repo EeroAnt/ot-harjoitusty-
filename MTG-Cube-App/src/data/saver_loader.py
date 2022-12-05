@@ -1,12 +1,12 @@
 import sqlite3
-from entities.cube_and_cards import Cube
-import entities.card_lists.card_list_lister as lister
+from entities.cube import Cube
+import card_list_text_files.card_list_text_file_handler as lister
 import os
 
 def save(name_of_cube: Cube):
-    if os.path.exists(f"src/entities/Saved_Cubes/{name_of_cube.name}.db"):
-        os.remove(f"src/entities/Saved_Cubes/{name_of_cube.name}.db")
-    d_b = sqlite3.connect(f"src/entities/Saved_Cubes/{name_of_cube.name}.db")
+    if os.path.exists(f"src/data/Saved_Cubes/{name_of_cube.name}.db"):
+        os.remove(f"src/data/Saved_Cubes/{name_of_cube.name}.db")
+    d_b = sqlite3.connect(f"src/data/Saved_Cubes/{name_of_cube.name}.db")
     d_b.isolation_level = None
     # Alusta cube
     d_b.execute(
@@ -32,7 +32,7 @@ def save(name_of_cube: Cube):
 
 
 def load(name_of_cube: str):
-    path = 'src/entities/Saved_Cubes/'+name_of_cube+".db"
+    path = 'src/data/Saved_Cubes/'+name_of_cube+".db"
     d_b = sqlite3.connect(path)
     d_b.isolation_level = None
     list_of_cards = d_b.execute("SELECT * FROM Cards").fetchall()

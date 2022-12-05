@@ -1,8 +1,8 @@
-from entities.cube_and_cards import Cube
+from entities.cube import Cube
 
 def print_list(name_of_cube:Cube):
     name_list = input("Nimeä tuloste: ")
-    with open(f"src/entities/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
+    with open(f"src/printer/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
         file.write("<!DOCTYPE html>\n<html>"+
         '<head><link rel="stylesheet" href="style.css"></head>\n'+
         "\n<body>\n<h1>"+name_list+"</h1>\n<section>\n<table>\n")
@@ -27,7 +27,7 @@ def print_list(name_of_cube:Cube):
             "</tr>")
         file.write("</table>\n</section>\n<aside>")
         for i in name_of_cube.collection:
-            file.write(f'<img src="../fetched_cards/{i.name_for_img}.png"/>\n')
+            file.write(f'<img src="../data/fetched_cards/{i.name_for_img}.png"/>\n')
         file.write("</aside>")
         file.write("</body>\n</html>")
 

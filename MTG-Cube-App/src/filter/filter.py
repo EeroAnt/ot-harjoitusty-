@@ -1,8 +1,8 @@
 import os
 import sqlite3
-from entities.cube_and_cards import Cube
-from entities.printer import print_list
-from entities.saver_loader import save
+from entities.cube import Cube
+from printer.printer import print_list
+from data.saver_loader import save
 
 def filter_cube(cube:Cube):
     not_filtered_cube = cube
@@ -54,13 +54,13 @@ def instructions():
     print("Suodatetaanko:\n")
 
 def refresh_database(cube:Cube):
-    os.remove("src/entities/Saved_Cubes/temp.db")
+    os.remove("src/data/Saved_Cubes/temp.db")
     cube.name = "temp"
     save(cube)
     return cube
 
 def color_filter(name):
-    d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     colors = input("Suodata väreillä (W,B,G,U,R): ")
     string_to_execute = "SELECT * From Cards WHERE colors LIKE ?"
@@ -78,7 +78,7 @@ def color_filter(name):
     return new_cube
 
 def color_id_filter(name):
-    d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     color_id = input("Suodata väri-identiteetillä (W,B,G,U,R): ")
     not_valid_colors = "WURGB"
@@ -104,7 +104,7 @@ def cmc_filter(name):
         cmc_value = input("Anna arvo (kokonaisluku): ")
     cmc_query = int(cmc_query)
     cmc_value = int(cmc_value)
-    d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     if cmc_query == 1:
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc <= ?;", [cmc_value]).fetchall()
@@ -119,12 +119,12 @@ def cmc_filter(name):
     return new_cube
 
 def type_filter(name):
-    types = input("Suodata korttityypeillä tai -alatyypeillä: ")
+    types = input("Suodata korttityypeillä ja/tai -alatyypeillä: ")
     if "," in types:
         list_of_types = types.split(",")
     else:
         list_of_types = [types]
-    d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     if len(list_of_types) == 1:
         filtered_list = d_b.execute("SELECT * From Cards WHERE type LIKE ?",
@@ -146,7 +146,7 @@ def type_filter(name):
 
 def oracle_filter(name):
     oracle = input("Suodata tekstillä: ")
-    d_b = sqlite3.connect("src/entities/Saved_Cubes/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     filtered_list = d_b.execute("SELECT From Cards WHERE oracle LIKE ?",
         ["%"+oracle+"%"]).fetchall()
