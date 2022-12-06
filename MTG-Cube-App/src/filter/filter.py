@@ -77,8 +77,9 @@ def color_filter(name):
         string_to_execute += "or colors LIKE ?"
     string_to_execute += ";"
     list_of_variables = []
-    for count, ele in enumerate(colors):
-        list_of_variables.append(f'%{colors[count]}%')
+    for ele in enumerate(colors):
+        list_of_variables.append(f'%{ele[1]}%')
+    print(list_of_variables)
     filtered_list = d_b.execute(string_to_execute, list_of_variables).fetchall()
     color_filtered_cube = Cube(name)
     for i in filtered_list:
@@ -101,8 +102,8 @@ def color_id_filter(name):
         string_to_execute += " AND color_identity NOT LIKE ?"
     string_to_execute += ";"
     list_of_variables = []
-    for count, ele in enumerate(not_valid_colors):
-        list_of_variables.append(f'%{not_valid_colors[count]}%')
+    for ele in enumerate(not_valid_colors):
+        list_of_variables.append(f'%{ele[1]}%')
     filtered_list = d_b.execute(string_to_execute, list_of_variables).fetchall()
     color_id_filtered_cube = Cube(name)
     for i in filtered_list:
@@ -167,11 +168,14 @@ def power_filter(name):
     d_b.isolation_level = None
     power_query = int(power_query)
     if power_query == 1:
-        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE power <= ?;", [power_value]).fetchall()
+        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards "+
+        "WHERE type LIKE '%creature%') WHERE power <= ?;", [power_value]).fetchall()
     if power_query == 2:
-        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE power >= ?;", [power_value]).fetchall()
+        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards "+
+        "WHERE type LIKE '%creature%') WHERE power >= ?;", [power_value]).fetchall()
     if power_query == 3:
-        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE power = ?;", [power_value]).fetchall()
+        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards "+
+        "WHERE type LIKE '%creature%') WHERE power = ?;", [power_value]).fetchall()
     power_filtered_cube = Cube(name)
     for i in filtered_list:
         power_filtered_cube.add_card(i[1])
@@ -189,11 +193,14 @@ def toughness_filter(name):
     d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     if toughness_query == 1:
-        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE toughness <= ?;", [toughness_value]).fetchall()
+        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards "+
+        "WHERE type LIKE '%creature%') WHERE toughness <= ?;", [toughness_value]).fetchall()
     if toughness_query == 2:
-        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE toughness >= ?;", [toughness_value]).fetchall()
+        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards "+
+        "WHERE type LIKE '%creature%') WHERE toughness >= ?;", [toughness_value]).fetchall()
     if toughness_query == 3:
-        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE toughness = ?;", [toughness_value]).fetchall()
+        filtered_list = d_b.execute("SELECT * From (SELECT * From Cards "+
+        "WHERE type LIKE '%creature%') WHERE toughness = ?;", [toughness_value]).fetchall()
     new_cube = Cube(name)
     for i in filtered_list:
         new_cube.add_card(i[1])

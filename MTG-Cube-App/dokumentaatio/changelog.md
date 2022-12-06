@@ -14,3 +14,7 @@
 - pylint otettu käyttöön ja suurinosa erheistä on korjattu. Jeesiä tarvitaan loppuihin.
 - Tekstitiedostosta luodut Cubet sietävät huonoja rivejä ja prosessi printtaa listan riveistä, joita ei saatu cubeen lisättyä.
 
+## Viikko 5:
+
+- Suodatus toimii nyt paremmin. Tulostus vaihtoehdoiksi on muodostunut joko taulukon tai kuvien tulostaminen
+- p_t arvo jaettu power- ja toughness-arvoiksi. Lähinnä suodatuksen mahdollistamiseksi

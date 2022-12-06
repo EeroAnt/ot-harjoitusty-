@@ -1,7 +1,8 @@
 from entities.cube import Cube
 
 def print_list_table(name_of_cube:Cube):
-    name_list = input("Nimeä tuloste: ")
+    print("Nimeä tuloste: ")
+    name_list = get_input()
     with open(f"src/printer/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
         file.write("<!DOCTYPE html>\n<html>"+
         '<head><link rel="stylesheet" href="style.css"></head>\n'+
@@ -31,7 +32,8 @@ def print_list_table(name_of_cube:Cube):
         file.write("</body>\n</html>")
 
 def print_list_imgs(name_of_cube:Cube):
-    name_list = input("Nimeä tuloste: ")
+    print("Nimeä tuloste: ")
+    name_list = get_input()
     with open(f"src/printer/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
         file.write("<!DOCTYPE html>\n<html>"+
         '<head><link rel="stylesheet" href="img_style.css"></head>\n'+
@@ -40,6 +42,8 @@ def print_list_imgs(name_of_cube:Cube):
             file.write(f'<img src="../../data/fetched_cards/{i.name_for_img}.png"/>\n')
         file.write("</section>\n</body>\n</html>")
 
+def get_input():
+    return input()
 # def print_from_db(name_of_cube:str):
 
 # for i in name_of_cube.collection:
