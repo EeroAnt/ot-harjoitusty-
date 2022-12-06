@@ -1,25 +1,11 @@
 Blood Scrivener
-Bloodthrone Vampire
-Burglar Rat
-Caligo Skin-Witch
-Dauthi Horror
 Dauthi Slayer
-Dregscape Zombie
-Dusk Legion Zealot
-Gnawing Zombie
-Golgari Thug
-Pack Rat
 Hydroblast
 Mizzium Skin
-Opt
 Ei validi kortti
-Ponder
-Preordain
-Serum Visions
-Sleight of Hand
-String of Disappearances
-Stubborn Denial
-Swan Song
 Anafenza, Kin-Tree Spirit
 Eight-and-a-Half-Tails
 Carnival // Carnage
+Sol Ring
+Dimir Signet
+Lightning Greaves
