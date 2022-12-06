@@ -25,7 +25,10 @@ class Cube:
     def remove_card(self, name):
         if name in self.card_names:
             self.card_names.remove(name)
-            self.collection.remove(Card(name))
+            for i in self.collection:
+                if i.name == name:
+                    card = i
+            self.collection.remove(card)
         else:
             print(f"{name} nimellä ei löytynyt korttia Cubesta")
 

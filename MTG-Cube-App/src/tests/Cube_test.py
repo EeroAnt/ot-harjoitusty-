@@ -22,3 +22,8 @@ class TestCube(unittest.TestCase):
         self.cube.add_card("forest")
         self.assertEqual([self.cube.card_names, len(
             self.cube.collection)], [["Forest"], 1])
+
+    def test_removing_card_successfully(self):
+        self.cube.add_card("forest")
+        self.cube.remove_card("Forest")
+        self.assertEqual([self.cube.card_names, self.cube.collection], [[],[]])
