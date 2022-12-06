@@ -17,13 +17,14 @@ class Card:
         self.text = card_dict["oracle_text"]
         self.img_uri = card_dict["image_uris"]["png"]
         self.p_t = ""
-        if "p/t" in card_dict.keys():
-            self.p_t = card_dict["p/t"]
+        for i in card_dict:
+            if i == "p/t":
+                self.p_t = card_dict["p/t"]
         name_for_img = name.replace(" ", "+").replace("/", "").replace(",", "")
-        self.name_for_img = name_for_img
+        self.name_for_img = name_for_img.lower()
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
 class CardData:
@@ -36,74 +37,10 @@ class CardData:
         d_b.isolation_level = None
         card_data = d_b.execute("SELECT * FROM Cards WHERE name LIKE ?", [name]).fetchone()
         if card_data is not None:
-            self.card_dict = {
-                "name": card_data[1],
-                "colors": card_data[2],
-                "color_identity": card_data[3],
-                "cmc": card_data[4],
-                "mana_cost": card_data[5],
-                "type_line": card_data[6],
-                "keywords": card_data[7],
-                "oracle_text": card_data[8],
-                "image_uris": {"png": card_data[9]}}
-            if card_data[10] is not None:
-                self.card_dict["p/t"] = card_data[10]
+            if data_from_db is not False:
+                self.card_dict = data_from_db(name)
         else:
-            name_for_api = name.replace(" ", "+")
-            name_for_api = name_for_api.replace("/", "")
-            name_for_api = name_for_api.replace(",", "")
-            card_data_api = requests.get(
-                "https://api.scryfall.com/cards/named?exact="+
-                name_for_api, timeout=10)
-            time.sleep(0.1)
-            if card_data_api.status_code == 200:
-                self.card_dict = json.loads(jprint(card_data_api.json()))
-                image = requests.get(
-                        self.card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
-                open("src/data/fetched_cards/"+name_for_api+".png", 'wb').write(image.content)
-                d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
-                d_b.isolation_level = None
-                oracle = ""
-                if "oracle_text" in self.card_dict.keys():
-                    oracle = self.card_dict["oracle_text"]
-                else:
-                    for i in self.card_dict["card_faces"]:
-                        oracle += i["oracle_text"] + "//"
-                if "power" in self.card_dict.keys():
-                    self.card_dict["p/t"] = str(self.card_dict["power"]) + \
-                        "/"+str(self.card_dict["toughness"])
-                    d_b.execute("INSERT INTO Cards (name, colors, color_identity, "+
-                        "cmc, mana_cost, type, keywords, oracle, image_uri, p_t)"+
-                        " VALUES (?,?,?,?,?,?,?,?,?,?);", [
-                        self.card_dict["name"],
-                        str(self.card_dict["colors"]),
-                        str(self.card_dict["color_identity"]),
-                        self.card_dict["cmc"],
-                        str(self.card_dict["mana_cost"]),
-                        self.card_dict["type_line"],
-                        str(self.card_dict["keywords"]),
-                        oracle,
-                        self.card_dict["image_uris"]["png"],
-                        self.card_dict["p/t"]
-                    ])
-                else:
-                    d_b.execute(
-                        "INSERT INTO Cards ("+
-                        "name, colors, color_identity, cmc, mana_cost, "+
-                        "type, keywords, oracle, image_uri) "+
-                        "VALUES (?,?,?,?,?,?,?,?,?);"
-                        , [
-                        self.card_dict["name"],
-                        str(self.card_dict["colors"]),
-                        str(self.card_dict["color_identity"]),
-                        self.card_dict["cmc"],
-                        str(self.card_dict["mana_cost"]),
-                        self.card_dict["type_line"],
-                        str(self.card_dict["keywords"]),
-                        oracle,
-                        self.card_dict["image_uris"]["png"]
-                    ])
-
+            self.card_dict = data_from_api(name)
 
 def card_test(name: str):
     d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
@@ -112,13 +49,7 @@ def card_test(name: str):
         "SELECT * FROM Cards WHERE name LIKE ?", [name]).fetchone()
     if card_data is not None:
         return True
-    name_for_api = name.replace(" ", "+")
-    name_for_api = name_for_api.replace("/", "")
-    name_for_api = name_for_api.replace(",", "")
-    response = requests.get(
-        f"https://api.scryfall.com/cards/named?exact={name_for_api}", timeout=10)
-    time.sleep(0.1)
-    if response.status_code == 200:
+    if data_from_api(name) is not False:
         return True
     return False
 
@@ -127,3 +58,100 @@ def jprint(obj):
     # Converts json object to string
     data = json.dumps(obj, sort_keys=True, indent=4)
     return data
+
+def data_from_db(name):
+    d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
+    d_b.isolation_level = None
+    card_data = d_b.execute("SELECT * FROM Cards WHERE name LIKE ?", [name]).fetchone()
+    card_dict = {
+        "name": card_data[1],
+        "colors": card_data[2],
+        "color_identity": card_data[3],
+        "cmc": card_data[4],
+        "mana_cost": card_data[5],
+        "type_line": card_data[6],
+        "keywords": card_data[7],
+        "oracle_text": card_data[8],
+        "image_uris": {"png": card_data[9]}}
+    if card_data[10] is not None:
+        card_dict["p/t"] = card_data[10]
+    return card_dict
+
+def data_from_api(name:str):
+    #pilkotaan kortin nimi api-kutsulle kelpaavaksi
+    name_for_api = name.replace(" ", "+")
+    name_for_api = name_for_api.replace("/", "")
+    name_for_api = name_for_api.replace(",", "")
+    card_data_api = requests.get(
+        "https://api.scryfall.com/cards/named?exact="+
+        name_for_api, timeout=10)
+    #scryfall-apin dokumentaatiossa oli pyyntö, ettei useammin tehtäisi kutsuja
+    time.sleep(0.1)
+    if card_data_api.status_code == 200:
+        card_dict = json.loads(jprint(card_data_api.json()))
+        # Erilaisilla korteilla on erilainen rakenne jsonissa.
+        # Käsitteekseni kaikki, muut paitsi kaksipuoleiset
+        # kortit menevät jo olemassaolevalla rakenteella läpi.
+        if "name" not in card_dict.keys():
+            two_faced_card_handler()
+        else:
+            api_data_to_db(card_dict)
+            image = requests.get(
+            card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
+            with open("src/data/fetched_cards/"+name_for_api.lower()+".png", 'wb') as pic:
+                pic.write(image.content)
+            # Tää oli hämmentävä. api-kutsulla tehdyn kortin attribuuttien muotoilu oli
+            # erilainen, vaikka api-kutsun perusteella rakennetaan db-rivi kyseiselle
+            # kortille. Päätin sitten antaa api-kutsun vain luoda kyseisen rivin ja
+            # rakentaa sen perusteella kortti-olion, jotta pysyisivät yhdenmuotoisina.
+            return data_from_db(name)
+    return False
+
+def api_data_to_db(card_dict):
+    # tuplakorteilla (eri kuin kaksipuoleiset) on oracle-teksti
+    # eri tavoin kuin yksinkertaisilla korteilla.
+    # Katso esimerkiksi Carnival // Carnage testilistasta.
+    oracle = ""
+    if "oracle_text" in card_dict.keys():
+        oracle = card_dict["oracle_text"]
+    else:
+        for i in card_dict["card_faces"]:
+            oracle += i["oracle_text"] + "//"
+    d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
+    d_b.isolation_level = None
+    if "power" in card_dict.keys():
+        card_dict["p/t"] = str(card_dict["power"]) + \
+            "/"+str(card_dict["toughness"])
+        d_b.execute("INSERT INTO Cards (name, colors, color_identity, "+
+            "cmc, mana_cost, type, keywords, oracle, image_uri, p_t)"+
+            " VALUES (?,?,?,?,?,?,?,?,?,?);", [
+                card_dict["name"],
+                str(card_dict["colors"]),
+                str(card_dict["color_identity"]),
+                card_dict["cmc"],
+                str(card_dict["mana_cost"]),
+                card_dict["type_line"],
+                str(card_dict["keywords"]),
+                oracle,
+                card_dict["image_uris"]["png"],
+                card_dict["p/t"]
+            ])
+    else:
+        d_b.execute(
+            "INSERT INTO Cards ("+
+            "name, colors, color_identity, cmc, mana_cost, "+
+            "type, keywords, oracle, image_uri) "+
+            "VALUES (?,?,?,?,?,?,?,?,?);", [
+                card_dict["name"],
+                str(card_dict["colors"]),
+                str(card_dict["color_identity"]),
+                card_dict["cmc"],
+                str(card_dict["mana_cost"]),
+                card_dict["type_line"],
+                str(card_dict["keywords"]),
+                oracle,
+                card_dict["image_uris"]["png"]
+            ])
+
+def two_faced_card_handler():
+    pass

@@ -1,3 +1,3 @@
-from UI import UI
+from user_interface import UI
 
 UI.initialUI()

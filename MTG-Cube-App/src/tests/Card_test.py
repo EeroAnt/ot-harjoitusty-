@@ -9,9 +9,6 @@ class TestCards(unittest.TestCase):
         self.colored_creature = Card("Spike Rogue")
         self.non_color_spell = Card("Well of Knowledge")
 
-    def test_card_str(self):
-        self.assertEqual(str(self.colored_creature), "Spike Rogue")
-
     def test_colored_creature_attributes(self):
         self.assertEqual([
             self.colored_creature.name,

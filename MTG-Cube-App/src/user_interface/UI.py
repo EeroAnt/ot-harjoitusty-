@@ -60,6 +60,9 @@ def cubeUI(cube: Cube):
                 cube.add_card(name)
             else:
                 print("Kortin nimellä haku ei onnistunut")
+        if action == 2:
+            name = input("Kortin nimi: ")
+            cube.remove_card(name)
         if action == 3:
             print_list_table(cube)
         if action == 4:

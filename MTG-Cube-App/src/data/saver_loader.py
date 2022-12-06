@@ -1,6 +1,7 @@
 import sqlite3
 import os
 from entities.cube import Cube
+from entities.card import card_test
 import card_list_text_files.card_list_text_file_handler as lister
 
 def save(name_of_cube: Cube):
@@ -49,14 +50,17 @@ def load(name_of_cube: str):
 def load_from_list(name_of_cube, name_of_txt_file):
     cube_from_txt_file = Cube(name_of_cube)
     card_list = lister.lister(name_of_txt_file)
+    cards_to_be_added = []
+    failed_cards = []
     for i in card_list:
+        if card_test(i):
+            cards_to_be_added.append(i)
+        else:
+            failed_cards.append(i)
+    for i in cards_to_be_added:
         cube_from_txt_file.add_card(i)
-    cards_failed = []
-    for i in card_list:
-        if i not in cube_from_txt_file.card_names:
-            cards_failed.append(i)
     print("Kortit, joiden lisääminen ei onnistunut:\n")
-    for i in cards_failed:
+    for i in failed_cards:
         print(i)
     return cube_from_txt_file
 
