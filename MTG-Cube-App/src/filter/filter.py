@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from entities.cube import Cube
-from printer.printer import print_list
+from printer.printer import print_list_table
 from data.saver_loader import save
 
 def filter_cube(cube:Cube):
@@ -38,7 +38,7 @@ def filter_cube(cube:Cube):
         if action == 7:
             toughness_filter()
         if action == 9:
-            print_list(cube)
+            print_list_table(cube)
         if action == 0:
             print("Palataan")
             return not_filtered_cube

@@ -14,6 +14,8 @@ Kortteja voi lisätä yksittäisenä tai listana .txt-tiedoston avulla. Uusista 
 
  - [Arkkitehtuurikuvaus](https://github.com/EeroAnt/ot-harjoitusty-/blob/main/MTG-Cube-App/dokumentaatio/arkkitehtuuri.md)
 
+ - [Release](https://github.com/EeroAnt/ot-harjoitusty-/releases/tag/viikko5)
+
 ### Asennus
 
 MTG-Cube-App kansiossa tulee ajaa komennot

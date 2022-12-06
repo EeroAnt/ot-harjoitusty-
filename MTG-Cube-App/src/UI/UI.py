@@ -2,7 +2,7 @@ from entities.cube import Cube
 import entities.card as Card
 import data.saver_loader as saver
 import os
-import printer.printer as printer
+from printer.printer import print_list_imgs, print_list_table
 import filter.filter as filter
 
 INITIAL_ACTIONS = {
@@ -14,9 +14,11 @@ INITIAL_ACTIONS = {
 
 CUBE_ACTIONS = {
     1: "1 lisää kortti",
-    2: "2 printtaa cube",
-    3: "3 tallenna cube",
-    4: "4 suodata cube",
+    2: "2 poista kortti",
+    3: "3 printtaa cube tekstinä",
+    4: "4 printtaa cube kuvina",
+    5: "5 tallenna cube",
+    6: "6 suodata cube",
     0: "0 lopeta"
 }
 
@@ -58,9 +60,11 @@ def cubeUI(cube: Cube):
                 cube.add_card(name)
             else:
                 print("Kortin nimellä haku ei onnistunut")
-        if action == 2:
-            printer.print_list(cube)
         if action == 3:
+            print_list_table(cube)
+        if action == 4:
+            print_list_imgs(cube)
+        if action == 5:
             if os.path.exists(f"src/data/Saved_Cubes/{cube.name}.db"):
                 confirmation = input(
                     "Tällä nimellä on jo cube olemassa. Haluatko varmasti tallentaa sen päälle? Y/n: ")
@@ -74,7 +78,7 @@ def cubeUI(cube: Cube):
             else:
                 saver.save(cube)
                 print("Tallennettu")
-        if action == 4:
+        if action == 6:
             cube = filter.filter_cube(cube)
 
 # os.remove("src/entities/Saved_Cubes/Pallo.db")

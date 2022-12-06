@@ -21,6 +21,11 @@ class Cube:
                 self.collection.append(Card(initial_load['name']))
                 self.card_names.append(initial_load['name'])
 
+    def remove_card(self, name):
+        if name in self.card_names:
+            self.card_names.remove(name)
+            self.collection.remove(Card(name))
+
     def __str__(self):
         return self.name
 

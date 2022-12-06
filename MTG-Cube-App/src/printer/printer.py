@@ -1,6 +1,6 @@
 from entities.cube import Cube
 
-def print_list(name_of_cube:Cube):
+def print_list_table(name_of_cube:Cube):
     name_list = input("Nimeä tuloste: ")
     with open(f"src/printer/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
         file.write("<!DOCTYPE html>\n<html>"+
@@ -25,10 +25,21 @@ def print_list(name_of_cube:Cube):
             f"<td>{i.text}</td>\n"+
             f"<td>{i.p_t}</td>\n"+
             "</tr>")
-        file.write("</table>\n</section>\n<aside>")
-        for i in name_of_cube.collection:
-            file.write(f'<img src="../data/fetched_cards/{i.name_for_img}.png"/>\n')
-        file.write("</aside>")
+        file.write("</table>\n</section>\n")
         file.write("</body>\n</html>")
 
+def print_list_imgs(name_of_cube:Cube):
+    name_list = input("Nimeä tuloste: ")
+    with open(f"src/printer/Printed_lists/{name_list}.html","w",encoding='UTF-8') as file:
+        file.write("<!DOCTYPE html>\n<html>"+
+        '<head><link rel="stylesheet" href="img_style.css"></head>\n'+
+        "\n<body>\n<h1>"+name_list+"</h1>\n<section>\n")
+        for i in name_of_cube.collection:
+            file.write(f'<img src="../../data/fetched_cards/{i.name_for_img}.png"/>\n')
+        file.write("</section>\n</body>\n</html>")
+
 # def print_from_db(name_of_cube:str):
+
+# for i in name_of_cube.collection:
+#     file.write(f'<img src="../data/fetched_cards/{i.name_for_img}.png"/>\n')
+        
