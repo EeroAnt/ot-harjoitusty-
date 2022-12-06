@@ -15,4 +15,5 @@
 |28.11|6|pylint aloitettu ja suodattimet rakennettu. Suodattimet tulostavat .html tiedoston, jossa sisältö jotenkin tarkkailtavissa|
 |29.11|5|pitkän tutkailun jälkeen opin, että ilman javascriptiä (tai ainakaan pelkällä css) en saa kuvia niin sukkelasti, kuin toivoisin. Tavoitteena oli siis näyttää kortin kuva vain, kun kursori on tämän nimen kohdalla taulukossa, ja taulukon ulkopuolella. Sain joko tai. Toteutettu testejä vähän eteenpäin ja muutenkin tarkasteltu viikon tehtävänantoa. Pajaohjauksen avulla sain siirryttyä UI.py:n ajamisesta main.py:n ajamiseen ja muutenkin siistittyä yhtä ja toista.|
 |5.12|2|palautteen huomioita tarkasteltu. Pakkaus- ja testirakenteet uusittu, ja laitettu toimimaan|
+|6.12|10|cuben suodattimet saatu kokonaan toimimaan (siinä missä ovat ui:ssä) pylintin erheet saatu alle 5 ja viikon 5 tehtävät ainakin jotenkin tehtyä. Paljon tuli painittua että saisin unittest.mockin patch dekoraattorit toimimaan. en saanut|
 |summa|31||
