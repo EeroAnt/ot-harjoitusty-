@@ -13,7 +13,8 @@ def print_list_table(name_of_cube:Cube):
         "<th>Mana Cost</th>\n"+
         "<th>Type</th>\n"+
         "<th>Oracle Text</th>\n"+
-        "<th>P/T</th>\n"+
+        "<th>Power</th>\n"+
+        "<th>Toughness</th>\n"+
         "</tr>")
         for i in name_of_cube.collection:
             file.write("<tr>\n"+
@@ -23,7 +24,8 @@ def print_list_table(name_of_cube:Cube):
             f"<td>{i.mana_cost}</td>\n"+
             f"<td>{i.type}</td>\n"+
             f"<td>{i.text}</td>\n"+
-            f"<td>{i.p_t}</td>\n"+
+            f"<td>{i.power}</td>\n"+
+            f"<td>{i.toughness}</td>\n"+
             "</tr>")
         file.write("</table>\n</section>\n")
         file.write("</body>\n</html>")

@@ -16,10 +16,12 @@ class Card:
         self.keywords = card_dict["keywords"]
         self.text = card_dict["oracle_text"]
         self.img_uri = card_dict["image_uris"]["png"]
-        self.p_t = ""
+        self.power = ""
+        self.toughness = ""
         for i in card_dict:
-            if i == "p/t":
-                self.p_t = card_dict["p/t"]
+            if i == "power":
+                self.power = card_dict["power"]
+                self.toughness = card_dict["toughness"]
         name_for_img = name.replace(" ", "+").replace("/", "").replace(",", "")
         self.name_for_img = name_for_img.lower()
 
@@ -74,7 +76,8 @@ def data_from_db(name):
         "oracle_text": card_data[8],
         "image_uris": {"png": card_data[9]}}
     if card_data[10] is not None:
-        card_dict["p/t"] = card_data[10]
+        card_dict["power"] = card_data[10]
+        card_dict["toughness"] = card_data[11]
     return card_dict
 
 def data_from_api(name:str):
@@ -120,11 +123,9 @@ def api_data_to_db(card_dict):
     d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
     d_b.isolation_level = None
     if "power" in card_dict.keys():
-        card_dict["p/t"] = str(card_dict["power"]) + \
-            "/"+str(card_dict["toughness"])
         d_b.execute("INSERT INTO Cards (name, colors, color_identity, "+
-            "cmc, mana_cost, type, keywords, oracle, image_uri, p_t)"+
-            " VALUES (?,?,?,?,?,?,?,?,?,?);", [
+            "cmc, mana_cost, type, keywords, oracle, image_uri, power, toughness)"+
+            " VALUES (?,?,?,?,?,?,?,?,?,?,?);", [
                 card_dict["name"],
                 str(card_dict["colors"]),
                 str(card_dict["color_identity"]),
@@ -134,7 +135,8 @@ def api_data_to_db(card_dict):
                 str(card_dict["keywords"]),
                 oracle,
                 card_dict["image_uris"]["png"],
-                card_dict["p/t"]
+                card_dict["power"],
+                card_dict["toughness"]
             ])
     else:
         d_b.execute(

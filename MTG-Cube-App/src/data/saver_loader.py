@@ -13,11 +13,11 @@ def save(name_of_cube: Cube):
     d_b.execute(
         "CREATE TABLE Cards (id INTEGER PRIMARY KEY, name TEXT, colors TEXT, "+
         "color_identity TEXT, cmc INTEGER, mana_cost TEXT, type TEXT, keywords"+
-        " TEXT, oracle TEXT, image_uri TEXT, p_t TEXT);")
+        " TEXT, oracle TEXT, image_uri TEXT, power TEXT, toughness TEXT);")
     for i in name_of_cube.collection:
         d_b.execute(
             "INSERT INTO Cards (name, colors, color_identity, cmc, mana_cost, "+
-            "type, keywords, oracle, image_uri, p_t) VALUES (?,?,?,?,?,?,?,?,?,?);"
+            "type, keywords, oracle, image_uri, power, toughness) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
             , [
             i.name,
             str(i.colors),
@@ -28,7 +28,8 @@ def save(name_of_cube: Cube):
             str(i.keywords),
             i.text,
             i.img_uri,
-            i.p_t
+            i.power,
+            i.toughness
         ])
 
 
