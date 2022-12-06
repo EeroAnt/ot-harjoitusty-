@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from entities.cube import Cube
-from printer.printer import print_list_table
+from printer.printer import print_list_table, print_list_imgs
 from data.saver_loader import save
 
 def filter_cube(cube:Cube):
@@ -38,7 +38,12 @@ def filter_cube(cube:Cube):
         if action == 7:
             cube = toughness_filter(cube.name)
         if action == 9:
-            print_list_table(cube)
+            print("Taulukko vai kuvat? (T/k)?")
+            table_or_imgs = get_input()
+            if table_or_imgs.lower() == "t":
+                print_list_table(cube)
+            if table_or_imgs.lower() == "k":
+                print_list_imgs(cube)
         if action == 0:
             print("Palataan")
             return not_filtered_cube
@@ -56,14 +61,14 @@ def instructions():
     print("Suodatetaanko:")
 
 def refresh_database(cube:Cube):
-    os.remove("src/data/fetched_cards/temp.db")
+    os.remove("src/data/Saved_Cubes/temp.db")
     cube.name = "temp"
     save(cube)
     return cube
 
 def color_filter(name):
     print("Älä syötä muita merkkejä, kuin värejä kuvaavia kirjaimia")
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     print("Suodata väreillä (W,B,G,U,R): ")
     colors = get_input()
@@ -82,7 +87,7 @@ def color_filter(name):
     return color_filtered_cube
 
 def color_id_filter(name):
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     print("Suodata väri-identiteetillä (W,B,G,U,R): ")
     color_id = get_input()
@@ -113,7 +118,7 @@ def cmc_filter(name):
         cmc_value = get_input()
     cmc_query = int(cmc_query)
     cmc_value = int(cmc_value)
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     if cmc_query == 1:
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc <= ?;", [cmc_value]).fetchall()
@@ -130,7 +135,7 @@ def cmc_filter(name):
 def type_filter(name):
     print("Suodata korttityypillä ja/tai -alatyypillä: ")
     target_type = get_input()
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     filtered_list = d_b.execute("SELECT * From Cards WHERE type LIKE ?",
         [f'%{target_type}%'])
@@ -142,7 +147,7 @@ def type_filter(name):
 
 def oracle_filter(name):
     oracle = input("Suodata tekstillä: ")
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     filtered_list = d_b.execute("SELECT * From Cards WHERE oracle LIKE ?",
         ["%"+oracle+"%"]).fetchall()
@@ -158,7 +163,7 @@ def power_filter(name):
     if power_query in ["1","2","3"]:
         print("Suodata power-arvolla: ")
         power_value = int(get_input())
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     power_query = int(power_query)
     if power_query == 1:
@@ -181,7 +186,7 @@ def toughness_filter(name):
         toughness_value = get_input()
     toughness_query = int(toughness_query)
     toughness_value = int(toughness_value)
-    d_b = sqlite3.connect("src/data/fetched_cards/temp.db")
+    d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
     if toughness_query == 1:
         filtered_list = d_b.execute("SELECT * From (SELECT * From Cards WHERE type LIKE '%creature%') WHERE toughness <= ?;", [toughness_value]).fetchall()
