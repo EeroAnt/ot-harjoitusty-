@@ -89,7 +89,7 @@ sequenceDiagram
   participant Cube(kuutio)
   participant Card
   participant CardData
-  kuutio.add_card("Forest")
+  Cube->>FuelTank: kuutio.add_card("Forest")
   Machine->>FuelTank: kone._tank = FuelTank()
   Machine->>FuelTank: kone._tank.fill(40)
   activate FuelTank
