@@ -1,3 +1,3 @@
-from user_interface import UI
+from user_interface.initial_ui import initialUI
 
-UI.initialUI()
+initialUI()
