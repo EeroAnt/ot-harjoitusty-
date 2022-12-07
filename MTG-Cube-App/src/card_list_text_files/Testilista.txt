@@ -9,3 +9,4 @@ Carnival // Carnage
 Sol Ring
 Dimir Signet
 Lightning Greaves
+Angel of Despair
