@@ -1,8 +1,5 @@
-# import json
-# import time
-# import sqlite3
-# import requests
-from entities.card import Card, CardData
+from entities.card import Card, CardData, card_test
+from card_list_text_files.card_list_text_file_handler import lister
 
 
 class Cube:
@@ -21,6 +18,28 @@ class Cube:
                 else:
                     self.collection.append(Card(initial_load['name']))
                     self.card_names.append(initial_load['name'])
+
+    def add_cards_from_list(self, name_of_txt_file):
+        card_list = lister(name_of_txt_file)
+        cards_to_be_added = []
+        cards_failed_to_add = []
+        cards_already_in = []
+        for i in card_list:
+            if card_test(i):
+                cards_to_be_added.append(i)
+            else:
+                cards_failed_to_add.append(i)
+        for i in cards_to_be_added:
+            if i in self.card_names:
+                cards_already_in.append(i)
+            else:
+                self.add_card(i)
+        print("Kortit, joita ei tunnistettu:\n")
+        for i in cards_failed_to_add:
+            print(i)
+        print("Kortit, jotka olivat jo cubessa:\n")
+        for i in cards_already_in:
+            print(i)
 
     def remove_card(self, name):
         if name in self.card_names:
