@@ -18,3 +18,8 @@
 
 - Suodatus toimii nyt paremmin. Tulostus vaihtoehdoiksi on muodostunut joko taulukon tai kuvien tulostaminen
 - p_t arvo jaettu power- ja toughness-arvoiksi. Lähinnä suodatuksen mahdollistamiseksi
+
+
+## Viikko 6:
+
+- Korttien lisääminen könttänä tekstitiedostosta olemassaolevaan cubeen onnistuu

@@ -10,13 +10,13 @@ Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin rii
 
   - Cuben (eli kokoelman) luominen ja tallentaminen. csv-tiedosto? Luokka-olio, joka ladataan ja tallennetaan csv:ksi? On valmis. Tuottaa .db tiedostoja
 
-  - Cubeen korttien lisääminen (toimii) ja poistaminen (toimii) (duplikaattien kohdalla saisi nousta errori(toimii)).
+  - Cubeen korttien lisääminen (toimii, nyt myös könttänä tekstitiedostosta) ja poistaminen (toimii) (duplikaattien kohdalla saisi nousta errori(toimii)).
 
   - Cuben tarkastelu (toimii, cubesta saa .html tulosteen)
 
 - Lisätoiminnot
 
-  - Korteille infoja (alkuun riittänee filtteröinti- ja sorttauskriteereihin tarvittavat ja linkki esim scryfalliin jokaiselle kortille) (toimii, olennaiset infot filttereille ja muutenkin tallentuu korttiolioon ja korttien kuvatkin (paria poikkeusta lukuunottamatta) saadaan haettua)
+  - Korteille infoja (alkuun riittänee filtteröinti- ja sorttauskriteereihin tarvittavat ja linkki esim scryfalliin jokaiselle kortille) (toimii, olennaiset infot filttereille ja muutenkin tallentuu korttiolioon ja korttien kuvatkin saadaan haettua, pl kaksipuoleiset kortit)
 
   - Yksittäisen kortin haku (eip)
 
