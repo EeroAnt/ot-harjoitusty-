@@ -34,3 +34,8 @@ class TestCube(unittest.TestCase):
     def test_removing_card_fail(self, stdout):
         self.cube.remove_card("Forest")
         self.assertEqual(stdout.getvalue(), "Forest nimellä ei löytynyt korttia Cubesta\n")
+
+    def test_adding_to_cube_from_list(self):
+        self.cube.add_card("Sol Ring")
+        self.cube.add_cards_from_list("Testilista.txt")
+        self.assertEqual(len(self.cube.collection),11)
