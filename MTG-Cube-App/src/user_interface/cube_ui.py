@@ -38,9 +38,11 @@ def cube_(cube: Cube):
             name = input("Kortin nimi: ")
             cube.remove_card(name)
         if action == 4:
-            print_list_table(cube)
+            name = input("Nimeä tuloste: ")
+            print_list_table(cube, name)
         if action == 5:
-            print_list_imgs(cube)
+            name = input("Nimeä tuloste: ")
+            print_list_imgs(cube, name)
         if action == 6:
             cube = filter_ui(cube)
         if action == 7:

@@ -54,9 +54,11 @@ def filter_ui(cube:Cube):
         if action == 9:
             table_or_imgs = input("Taulukko vai kuvat? (T/k)?")
             if table_or_imgs.lower() == "t":
-                print_list_table(cube)
+                name = input("Nimeä tuloste: ")
+                print_list_table(cube, name)
             if table_or_imgs.lower() == "k":
-                print_list_imgs(cube)
+                name = input("Nimeä tuloste: ")
+                print_list_imgs(cube, name)
         if action == 0:
             print("Palataan")
             return not_filtered_cube

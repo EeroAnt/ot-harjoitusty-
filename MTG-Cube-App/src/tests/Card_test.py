@@ -1,5 +1,5 @@
 import unittest
-from entities.card import Card
+from entities.card import Card, data_from_api
 
 #from unittest.mock import patch
 
@@ -62,10 +62,12 @@ class TestCards(unittest.TestCase):
             "",
             ""
         ])
-    # Tää ei toimi, mut tahtoisin et se toimis
-    # @patch('sqlite3.connect(f"src/entities/fetched_cards/fetched_cards.db")', None)
-    # def test_fetching_card_data(self):
-    #     new_noncreature_card = Card("Doomsday")
-    #     new_creature_card = Card("Pit spawn")
-    #     self.assertEqual([new_creature_card.name, new_noncreature_card.name],["Pit Spawn","Doomsday"])
 
+    def test_creature_from_api(self):
+        card_dict = data_from_api("Elvish Piper")
+        self.assertEqual(card_dict['name'],"Elvish Piper")
+    
+    def test_non_creature_from_api(self):
+        card_dict = data_from_api("Doom Blade")
+        self.assertEqual(card_dict['name'],"Doom Blade")
+    
