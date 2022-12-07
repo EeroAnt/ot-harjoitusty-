@@ -4,7 +4,7 @@ import data.saver_loader as saver
 import os
 from printer.printer import print_list_imgs, print_list_table
 import filter.filter as filter
-
+from user_interface.filter_ui import filter_ui
 INITIAL_ACTIONS = {
     1: "luo uusi cube",
     2: "lataa vanha cube",
@@ -82,7 +82,7 @@ def cubeUI(cube: Cube):
                 saver.save(cube)
                 print("Tallennettu")
         if action == 6:
-            cube = filter.filter_cube(cube)
+            cube = filter_ui(cube)
 
 # os.remove("src/entities/Saved_Cubes/Pallo.db")
 

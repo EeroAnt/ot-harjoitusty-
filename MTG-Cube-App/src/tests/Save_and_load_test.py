@@ -10,7 +10,7 @@ class TestSavingAndLoading(unittest.TestCase):
         save(self.cube)
 
     def test_loading_from_list(self):
-        self.assertEqual(self.cube.card_names, ['Blood Scrivener', 'Dauthi Slayer', 'Hydroblast', 'Mizzium Skin', 'Anafenza, Kin-Tree Spirit', 'Eight-and-a-Half-Tails', 'Carnival // Carnage', 'Sol Ring', 'Dimir Signet', 'Lightning Greaves'])
+        self.assertEqual(self.cube.card_names, ['Blood Scrivener', 'Dauthi Slayer', 'Hydroblast', 'Mizzium Skin', 'Anafenza, Kin-Tree Spirit', 'Eight-and-a-Half-Tails', 'Carnival // Carnage', 'Sol Ring', 'Dimir Signet', 'Lightning Greaves',"Angel of Despair"])
 
     @patch('sys.stdout', new_callable= StringIO)
     def test_loading_from_list_print(self, stdout):
@@ -22,4 +22,4 @@ class TestSavingAndLoading(unittest.TestCase):
 
     def test_loading_from_db(self):
         load_test_cube = load("TestCube")
-        self.assertEqual(load_test_cube.card_names, ['Blood Scrivener', 'Dauthi Slayer', 'Hydroblast', 'Mizzium Skin', 'Anafenza, Kin-Tree Spirit', 'Eight-and-a-Half-Tails', 'Carnival // Carnage', 'Sol Ring', 'Dimir Signet', 'Lightning Greaves'])
+        self.assertEqual(load_test_cube.card_names, ['Blood Scrivener', 'Dauthi Slayer', 'Hydroblast', 'Mizzium Skin', 'Anafenza, Kin-Tree Spirit', 'Eight-and-a-Half-Tails', 'Carnival // Carnage', 'Sol Ring', 'Dimir Signet', 'Lightning Greaves',"Angel of Despair"])
