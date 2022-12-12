@@ -2,7 +2,7 @@
 
 ## Sovelluksen tarkoitus
 
-Tarkoituksena luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin riittävästi informaatiota ja käytettävyyttä sisältävä ohjelma max 2000 kortin kokoisen käsittelemiseen.
+Tarkoituksena on luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin riittävästi informaatiota ja käytettävyyttä sisältävä ohjelma max 2000 kortin kokoisen käsittelemiseen.
 
 ## Suunnitellut toiminnallisuudet
 

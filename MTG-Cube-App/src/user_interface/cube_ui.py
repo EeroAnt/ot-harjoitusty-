@@ -1,5 +1,5 @@
 from entities.cube import Cube
-from entities.card import Card
+from entities.card import Card, card_test
 from printer.printer import print_list_imgs, print_list_table
 import os
 from data.saver_loader import save
@@ -17,7 +17,7 @@ CUBE_ACTIONS = {
 }
 
 
-def cube_(cube: Cube):
+def cube_ui(cube: Cube):
     while True:
         for i in CUBE_ACTIONS:
             print(f"'{i}' : {CUBE_ACTIONS[i]}")
@@ -27,12 +27,12 @@ def cube_(cube: Cube):
             break
         if action == 1:
             name = input("Kortin nimi: ")
-            if Card.card_test(name) == True:
+            if card_test(name) == True:
                 cube.add_card(name)
             else:
                 print("Kortin nimellä haku ei onnistunut")
         if action == 2:
-            name = ("Tiedoston nimi: ")
+            name = input("Tiedoston nimi: ")
             cube.add_cards_from_list(name)
         if action == 3:
             name = input("Kortin nimi: ")
