@@ -1,8 +1,7 @@
 from entities.cube import Cube
-from entities.card import Card, card_test
+from entities.card import card_test
 from printer.printer import print_list_imgs, print_list_table
-import os
-from data.saver_loader import save
+from data.saver_loader import confirm_before_overwriting
 from user_interface.filter_ui import filter_ui
 
 CUBE_ACTIONS = {
@@ -46,17 +45,4 @@ def cube_ui(cube: Cube):
         if action == 6:
             cube = filter_ui(cube)
         if action == 7:
-            if os.path.exists(f"src/data/Saved_Cubes/{cube.name}.db"):
-                confirmation = input(
-                    "Tällä nimellä on jo cube olemassa. Haluatko"+
-                        " varmasti tallentaa sen päälle? Y/n: ")
-                if confirmation == "Y":
-                    print("Tallennettu")
-                    os.remove(f"src/data/Saved_Cubes/{cube.name}.db")
-                    save(cube)
-                    print("Tallennettu")
-                else:
-                    print("Ei tallennettu")
-            else:
-                save(cube)
-                print("Tallennettu")
+            confirm_before_overwriting(cube)

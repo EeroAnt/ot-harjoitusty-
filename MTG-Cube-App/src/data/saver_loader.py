@@ -36,6 +36,22 @@ def save(name_of_cube: Cube):
             i.toughness
         ])
 
+def confirm_before_overwriting(cube):
+    if os.path.exists(f"src/data/Saved_Cubes/{cube.name}.db"):
+        confirmation = input(
+            "Tällä nimellä on jo cube olemassa. Haluatko"+
+            " varmasti tallentaa sen päälle? Y/n: ")
+        if confirmation == "Y":
+            print("Tallennettu")
+            os.remove(f"src/data/Saved_Cubes/{cube.name}.db")
+            save(cube)
+            print("Tallennettu")
+        else:
+            print("Ei tallennettu")
+    else:
+        save(cube)
+        print("Tallennettu")
+
 # load()-funktiolla ladataan käsiteltäväksi aiemmin tallennettu cube .db-tiedostosta.
 def load(name_of_cube: str):
     # Haetaan oikea taulukko käsittelyyn
