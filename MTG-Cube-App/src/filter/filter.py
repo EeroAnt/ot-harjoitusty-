@@ -13,7 +13,7 @@ def refresh_database(cube:Cube):
     return cube
 
 # Värin perusteella filtteröinti. Kortin väreistä tulee löytyä
-# jokin haetuista väreistä 
+# jokin haetuista väreistä
 def color_filter(name, colors):
     # Yhdistetään väliaikaiseen tietokantaan
     # (en toista kaikkia kommentteja joka suodattimessa)

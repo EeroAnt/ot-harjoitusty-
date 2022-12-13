@@ -109,17 +109,16 @@ def data_from_api(name:str):
     if "name" not in card_dict.keys():
         return False
         # two_faced_card_handler()
-    else:
-        # Syötetään löydetyistä tiedoista olennaiset osat lokaaliin
-        # tietokantaan ja ladataan kuva talteen
-        api_data_to_db(card_dict)
-        image = requests.get(
-        card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
-        with open("src/data/fetched_cards/"+name_for_api.lower()+".png", 'wb') as pic:
-            pic.write(image.content)
-        # Jonka jälkeen kortti kasataan juuri luodun tietokantarivin
-        # perusteella. Näin ei tarvinnut miettiä uudestaan tiedon muotoilua
-        return data_from_db(name)
+    # Syötetään löydetyistä tiedoista olennaiset osat lokaaliin
+    # tietokantaan ja ladataan kuva talteen
+    api_data_to_db(card_dict)
+    image = requests.get(
+    card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
+    with open("src/data/fetched_cards/"+name_for_api.lower()+".png", 'wb') as pic:
+        pic.write(image.content)
+    # Jonka jälkeen kortti kasataan juuri luodun tietokantarivin
+    # perusteella. Näin ei tarvinnut miettiä uudestaan tiedon muotoilua
+    return data_from_db(name)
 
 
 def api_data_to_db(card_dict):

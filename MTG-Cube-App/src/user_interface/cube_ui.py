@@ -9,8 +9,8 @@ CUBE_ACTIONS = {
     1: "1 lisää kortti",
     2: "2 lisää kortit tiedostosta",
     3: "3 poista kortti",
-    4: "3 printtaa cube tekstinä",
-    5: "4 printtaa cube kuvina",
+    4: "4 printtaa cube tekstinä",
+    5: "5 printtaa cube kuvina",
     6: "6 suodata cube",
     7: "7 tallenna cube",
     0: "0 lopeta"

@@ -1,7 +1,7 @@
 from entities.cube import Cube
 
 # Kirjoitetaan .html tiedosto, jonka sisältönä taulukoituna cuben korttien nimet, värit,
-# väri-identiteetit, hinnat, tyypit, tekstisisältö ja power- sekä toughness-arvot 
+# väri-identiteetit, hinnat, tyypit, tekstisisältö ja power- sekä toughness-arvot
 def print_list_table(name_of_cube:Cube, name_of_print):
     with open(f"src/printer/Printed_lists/{name_of_print}.html","w",encoding='UTF-8') as file:
         file.write("<!DOCTYPE html>\n<html>"+

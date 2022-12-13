@@ -4,7 +4,7 @@ from entities.cube import Cube
 from entities.card import card_test
 import card_list_text_files.card_list_text_file_handler as lister
 
-# save()-funktio luo .db-tiedoston tallennettavasta cubesta 
+# save()-funktio luo .db-tiedoston tallennettavasta cubesta
 def save(name_of_cube: Cube):
     # Aluksi tarkastetaan, jos kyseinen tiedosto on jo olemassa. Jos on, niin se poistetaan.
     if os.path.exists(f"src/data/Saved_Cubes/{name_of_cube.name}.db"):
@@ -54,7 +54,7 @@ def load(name_of_cube: str):
     # ja lisätään siihen jokainen listalta löytyvä kortti.
     for i in list_of_cards:
         loaded_cube.add_card(i[1])
-    # palautetaan cube 
+    # palautetaan cube
     return loaded_cube
 
 # load_from_list()-funktio luo cuben tekstitiedoston sisällöstä
@@ -76,8 +76,8 @@ def load_from_list(name_of_cube, name_of_txt_file):
     # Toimivat kortit lisätään
     for i in cards_to_be_added:
         cube_from_txt_file.add_card(i)
-    # ja toimimattomista printataan lista
-    if failed_cards != []:
+    # ja toimimattomista printataan lista, jos niitä on
+    if len(failed_cards) != 0:
         print("Kortit, joiden lisääminen ei onnistunut:\n")
         for i in failed_cards:
             print(i)
