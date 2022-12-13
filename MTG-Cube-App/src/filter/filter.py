@@ -5,9 +5,7 @@ from data.saver_loader import save
 
 # Suodattelun tuloksia ylläpidetään temp.db-tiedostossa
 def refresh_database(cube:Cube):
-    # Ensiksi vanha poistetaan
     os.remove("src/data/Saved_Cubes/temp.db")
-    # Ja sitten uusi tallennetaan
     cube.name = "temp"
     save(cube)
     return cube
@@ -15,27 +13,19 @@ def refresh_database(cube:Cube):
 # Värin perusteella filtteröinti. Kortin väreistä tulee löytyä
 # jokin haetuista väreistä
 def color_filter(name, colors):
-    # Yhdistetään väliaikaiseen tietokantaan
-    # (en toista kaikkia kommentteja joka suodattimessa)
     d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
-    # Rakennetaan sql-kysely
     string_to_execute = "SELECT * From Cards WHERE colors LIKE ?"
-    # Jokainen väri ensimmäisen jälkeen luo oman ehdon
     for i in range(len(colors)-1):
         string_to_execute += "or colors LIKE ?"
     string_to_execute += ";" # Varmaan toimis ilmankin, mutta lisään silti
-    # Kirjataan värit sql-kyselylle sopivaan muotoon (lista)
     list_of_variables = []
     for ele in enumerate(colors):
         list_of_variables.append(f'%{ele[1]}%')
-    # Yhdistetään palikat ja tehdään kysely
     filtered_list = d_b.execute(string_to_execute, list_of_variables).fetchall()
-    # Luodaan uusi cube suodatetulla sisällöllä
     color_filtered_cube = Cube(name)
     for i in filtered_list:
         color_filtered_cube.add_card(i[1])
-    # Ja päivitetään se uudeksi väliaikaiseksi tietokannaksi
     color_filtered_cube = refresh_database(color_filtered_cube)
     return color_filtered_cube
 
@@ -47,15 +37,11 @@ def color_filter(name, colors):
 def color_id_filter(name, color_id):
     d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
-    # Ensiksi sisällän kaikki värit kelvottomiin
     not_valid_colors = "WURGB"
-    # sitten poistan kelvottomista kelvot
     for i in color_id:
         if i in not_valid_colors:
             not_valid_colors = not_valid_colors.replace(i,'')
     string_to_execute = "SELECT * From Cards WHERE color_identity NOT LIKE ?"
-    # Tällä kertaa suodatetaan pois rivit, joiden väri-identiteettiin
-    # sisältyy kelvottomia värejä
     for i in range(len(not_valid_colors)-1):
         string_to_execute += " AND color_identity NOT LIKE ?"
     string_to_execute += ";"
@@ -74,13 +60,10 @@ def color_id_filter(name, color_id):
 def cmc_filter(name, cmc_query, cmc_value):
     d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
-    # haetaan kortit, joiden mana-arvo vähintään cmc_value
     if cmc_query == 1:
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc <= ?;", [cmc_value]).fetchall()
-    # haetaan kortit, joiden mana-arvo enintään cmc_value
     if cmc_query == 2:
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc >= ?;", [cmc_value]).fetchall()
-    # haetaan kortit, joiden mana-arvo tasan cmc_value
     if cmc_query == 3:
         filtered_list = d_b.execute("SELECT * From Cards WHERE cmc = ?;", [cmc_value]).fetchall()
     cmc_filtered_cube = Cube(name)
@@ -113,7 +96,7 @@ def oracle_filter(name, oracle):
     text_filtered_cube = refresh_database(text_filtered_cube)
     return text_filtered_cube
 
-# Mana-arvoa vastaava suodatus power-arvolle
+# Suodatus power-arvolle
 def power_filter(name, power_query, power_value):
     d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
@@ -132,7 +115,7 @@ def power_filter(name, power_query, power_value):
     power_filtered_cube =refresh_database(power_filtered_cube)
     return power_filtered_cube
 
-# Mana-arvoa vastaava suodatus toughness-arvolle
+# Suodatus toughness-arvolle
 def toughness_filter(name, toughness_query, toughness_value):
     d_b = sqlite3.connect("src/data/Saved_Cubes/temp.db")
     d_b.isolation_level = None
