@@ -19,4 +19,5 @@
 |7.12|2|testikattavuutta kasvatettu, filter_ui erotettu itse filtereistä ja yleistä siistimistä ja korjailua|
 |7.12|1|testikattavuutta kasvatettu lisää, ui:ta uudelleen jaoteltu ja soudatin uudelleen jäsennelty testattavuuden mahdollistamiseksi. Myös en muista missä välissä, mutta toin uuden toiminnon, korttien lisäämisen olemassaolevaan cubeen tekstitiedostosta|
 |10.-12.12.|2|Kommentit lisätty, jotain rikottu, jotain korjattu|
-|summa|44||
+|19.12|3|tuki kaksipuolisille korteille lisätty ja dokumentaatiota päivitetty viimeistä palautusta varten|
+|summa|49||

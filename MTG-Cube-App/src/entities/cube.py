@@ -1,6 +1,6 @@
+import sqlite3
 from entities.card import Card, CardData, card_test
 from card_list_text_files.card_list_text_file_handler import lister
-import sqlite3
 
 
 class Cube:
@@ -23,7 +23,7 @@ class Cube:
                     self.collection.append(Card(initial_load['name']))
                     self.card_names.append(initial_load['name'])
             # Jos kortti on 2-puolinen, haetaan myös takaosa
-            if initial_load["layout"] == "transform" or initial_load["layout"] == "modal_dfc":
+            if initial_load["layout"] in ("transform","modal_dfc"):
                 backside_name = find_backside(initial_load["name"])
                 self.add_card(backside_name)
 
@@ -55,7 +55,7 @@ class Cube:
         if name in self.card_names:
             self.card_names.remove(name)
             for i in self.collection:
-                if i.layout == "transform" or i.layout == "modal_dfc":
+                if i.layout in ("transform","modal_dfc"):
                     backside = find_backside(i.name)
                     self.remove_card(backside)
                 if i.name == name:

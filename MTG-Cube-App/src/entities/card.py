@@ -92,7 +92,7 @@ def data_from_api(name:str):
     card_dict = json.loads(jprint(card_data_api.json()))
     if "name" not in card_dict.keys():
         return False
-    card_dict = parse_card_data(card_dict)
+    parse_card_data(card_dict)
     return data_from_db(name)
 
 # Luodaan uusi rivi fetched_cards-tietokantaan api-kutsun perusteella.
@@ -145,12 +145,10 @@ def parse_card_data(card_dict:dict):
     if card_dict["layout"] == "normal":
         api_data_to_db(card_dict)
         get_image(card_dict)
-        return card_dict
     if card_dict["layout"] == "transform" or card_dict["layout"] == "modal_dfc":
         two_faced_card(card_dict)
     if card_dict["layout"] == "split":
         split_card(card_dict)
-        return card_dict
 
 def two_faced_card(card_dict):
     card_dict_front = {
