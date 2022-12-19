@@ -4,4 +4,4 @@ __pycache__
 htmlcov
 **/*.db
 **/*.html
-**/*.png
+**/fetched_cards/*.png
