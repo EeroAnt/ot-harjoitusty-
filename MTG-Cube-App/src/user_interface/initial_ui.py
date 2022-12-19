@@ -24,18 +24,18 @@ def initialUI():
     while True:
         for i in INITIAL_ACTIONS:
             print(f"'{i}' : {INITIAL_ACTIONS[i]}")
-        action = int(input("Anna komento: "))
-        if action == 0:
+        action = input("Anna komento: ")
+        if action == "0":
             print("Heippa!")
             break
-        if action == 1:
+        if action == "1":
             name = input("Nimeä Cube: ")
             new_cube = Cube(name)
             cube_ui(new_cube)
-        if action == 2:
+        if action == "2":
             name = input("Ladattava Cube: ")
             cube_ui(saver.load(name))
-        if action == 3:
+        if action == "3":
             txt_file_name = input("Tiedostonimi, josta lista haetaan: ")
             if os.path.exists("src/card_list_text_files/"+txt_file_name):
                 name_for_cube = input("Nimi luotavalle Cubelle: ")

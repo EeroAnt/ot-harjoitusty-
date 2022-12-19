@@ -18,6 +18,11 @@ CUBE_ACTIONS = {
 
 def cube_ui(cube: Cube):
     while True:
+        print(cube.name)
+        if len(cube.collection) == 1:
+            print("Cubessa on 1 kortti")
+        else:
+            print(f"Cubessa on {len(cube.collection)} korttia")
         for i in CUBE_ACTIONS:
             print(f"'{i}' : {CUBE_ACTIONS[i]}")
         action = int(input("Anna komento: "))

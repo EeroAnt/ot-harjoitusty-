@@ -2,36 +2,12 @@
 
 ## Sovelluksen tarkoitus
 
-Tarkoituksena on luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin riittävästi informaatiota ja käytettävyyttä sisältävä ohjelma max 2000 kortin kokoisen käsittelemiseen.
+Tarkoituksena on luoda riittävän kevyt ja helppokäyttöinen, mutta kuitenkin riittävästi informaatiota ja käytettävyyttä sisältävä ohjelma max 2000 kortin kokoisen kokoelman, cuben, käsittelemiseen.
 
-## Suunnitellut toiminnallisuudet
+## Toiminnallisuudet
 
-- Perustoiminnot
+- Aluksi joko luodaan uusi tyhjä cube, luodaan cube tekstitiedostosta tai ladataan tallennettu cube. Tallennetut cubet ovat .db-tietokantoja.
 
-  - Cuben (eli kokoelman) luominen ja tallentaminen. csv-tiedosto? Luokka-olio, joka ladataan ja tallennetaan csv:ksi? On valmis. Tuottaa .db tiedostoja
+- Käsiteltävään cubeen voi lisätä yksittäisiä kortteja tai lisätä tekstiedoston kautta listan kortteja. Yksittäisiä kortteja voi poistaa.
 
-  - Cubeen korttien lisääminen (toimii, nyt myös könttänä tekstitiedostosta) ja poistaminen (toimii) (duplikaattien kohdalla saisi nousta errori(toimii)).
-
-  - Cuben tarkastelu (toimii, cubesta saa .html tulosteen)
-
-- Lisätoiminnot
-
-  - Korteille infoja (alkuun riittänee filtteröinti- ja sorttauskriteereihin tarvittavat ja linkki esim scryfalliin jokaiselle kortille) (toimii, olennaiset infot filttereille ja muutenkin tallentuu korttiolioon ja korttien kuvatkin saadaan haettua, pl kaksipuoleiset kortit)
-
-  - Yksittäisen kortin haku (eip)
-
-  - Filtteröinti- ja sorttaustoiminnalisuuksia. Mahdollisuus tulostaa listana tekstitiedostoon? (filtteröinti osittain, sorttaus ei vielä)
-
-  - Myöhemmin korteille oma näkymä ohjelmaan (tekstimuodossa infot, kuva scryfallista, ehkä joskus kaikki kortin tiedot haetaan jostain manuaalisen syöttämisen sijasta) (ei tässä muodossa, mutta toistaseksi pystyy tekemään joko tekstipohjaisen taulukkomuotoisen tulosteen cubesta tai sitten printata cuben sisältö kuvina. Molemmat html -tiedostoina.)
-
-  - Mahdollisuus lisätä kortteja listasta (jep)
-
-  - Korteille omistajuus talteen (eip)
-
-  - Korteille versiotieto (mikä painos, onko kiiltokortti) (eip)
-
-  - Lisättäville ja poistetuille korteille välitila, joista näkyisi omistajan (eip)
-
-  - Draftin generointi? Eli arpoa x määrä y kortin kokoisia pinoja annetuilla kriteereillä ilman toistoja ja tallentaa ne yhteen tai erillisiin tiedostoihin (juu ei)
-
-Tätä kaikkea en kurssin aikana ajatellut saada valmiiksi, mutta ajatuksena olisi tehdä tämä omaan käyttöön ja sen vuoksi askarrella enempi.
+- Käsiteltävää cubea voi suodattaa erilaisilla kriteereillä ja siitä sekä suodatteista voi ottaa tulosteita joko taulukkona, jossa muutamia olennaisimpia tietoja, tai kuvina korteista. Nämä tulosteet tulevat .html-tiedostoina

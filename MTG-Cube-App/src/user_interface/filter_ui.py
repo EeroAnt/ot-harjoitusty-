@@ -8,6 +8,10 @@ def filter_ui(cube:Cube):
     cube = refresh_database(cube)
     while True:
         instructions()
+        if len(cube.collection) == 1:
+            print("Tarkasteltava on 1 kortti")
+        else:
+            print(f"Tarkasteltavana on {len(cube.collection)} korttia")
         commands = {
             1 : "'1': värillä",
             2 : "'2': väri-identiteetillä",
@@ -17,6 +21,7 @@ def filter_ui(cube:Cube):
             6 : "'6': power-arvolla",
             7 : "'7': toughness-arvolla",
             9 : "'9': tulosta suodatettu lista",
+            10 : "'10': listaa suodatuksen kortit",
             0 : "'0': palaa"
         }
         for i in commands.items():
@@ -59,6 +64,9 @@ def filter_ui(cube:Cube):
             if table_or_imgs.lower() == "k":
                 name = input("Nimeä tuloste: ")
                 print_list_imgs(cube, name)
+        if action == 10:
+            for i in cube.card_names:
+                print(i)
         if action == 0:
             print("Palataan")
             return not_filtered_cube

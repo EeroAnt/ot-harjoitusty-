@@ -71,3 +71,6 @@ class TestCards(unittest.TestCase):
         card_dict = data_from_api("Doom Blade")
         self.assertEqual(card_dict['name'],"Doom Blade")
     
+    def test_split_card(self):
+        card_dict = data_from_api("Appeal // Authority")
+        self.assertEqual(card_dict['oracle_text'],"Until end of turn, target creature gains trample and gets +X/+X, where X is the number of creatures you control.//Aftermath (Cast this spell only from your graveyard. Then exile it.)\nTap up to two target creatures your opponents control. Creatures you control gain vigilance until end of turn.//")

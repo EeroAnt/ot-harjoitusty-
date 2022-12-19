@@ -16,6 +16,7 @@ class Card:
         self.keywords = card_dict["keywords"]
         self.text = card_dict["oracle_text"]
         self.img_uri = card_dict["image_uris"]["png"]
+        self.layout = card_dict["layout"]
         self.power = ""
         self.toughness = ""
         for i in card_dict:
@@ -72,10 +73,11 @@ def data_from_db(name):
         "type_line": card_data[6],
         "keywords": card_data[7],
         "oracle_text": card_data[8],
-        "image_uris": {"png": card_data[9]}}
-    if card_data[10] is not None:
-        card_dict["power"] = card_data[10]
-        card_dict["toughness"] = card_data[11]
+        "image_uris": {"png": card_data[9]},
+        "layout": card_data[10]}
+    if card_data[11] is not None:
+        card_dict["power"] = card_data[11]
+        card_dict["toughness"] = card_data[12]
     return card_dict
 
 # Tämä hakee kortin tiedot internetistä
@@ -90,56 +92,123 @@ def data_from_api(name:str):
     card_dict = json.loads(jprint(card_data_api.json()))
     if "name" not in card_dict.keys():
         return False
-    api_data_to_db(card_dict)
-    image = requests.get(
-    card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
-    with open("src/data/fetched_cards/"+name_for_api.lower()+".png", 'wb') as pic:
-        pic.write(image.content)
+    card_dict = parse_card_data(card_dict)
     return data_from_db(name)
 
 # Luodaan uusi rivi fetched_cards-tietokantaan api-kutsun perusteella.
 # Kortteja on erilaisia, joten välillä pitää valikoida eri asioita
 def api_data_to_db(card_dict):
-    oracle = ""
-    if "oracle_text" in card_dict.keys():
-        oracle = card_dict["oracle_text"]
-    else:
-        for i in card_dict["card_faces"]:
-            oracle += i["oracle_text"] + "//"
     d_b = sqlite3.connect("src/data/fetched_cards/fetched_cards.db")
     d_b.isolation_level = None
-    if "power" in card_dict.keys():
-        d_b.execute("INSERT INTO Cards (name, colors, color_identity, "+
-            "cmc, mana_cost, type, keywords, oracle, image_uri, power, toughness)"+
-            " VALUES (?,?,?,?,?,?,?,?,?,?,?);", [
-                card_dict["name"],
-                str(card_dict["colors"]),
-                str(card_dict["color_identity"]),
-                card_dict["cmc"],
-                str(card_dict["mana_cost"]),
-                card_dict["type_line"],
-                str(card_dict["keywords"]),
-                oracle,
-                card_dict["image_uris"]["png"],
-                card_dict["power"],
-                card_dict["toughness"]
-            ])
-    else:
-        d_b.execute(
-            "INSERT INTO Cards ("+
-            "name, colors, color_identity, cmc, mana_cost, "+
-            "type, keywords, oracle, image_uri) "+
-            "VALUES (?,?,?,?,?,?,?,?,?);", [
-                card_dict["name"],
-                str(card_dict["colors"]),
-                str(card_dict["color_identity"]),
-                card_dict["cmc"],
-                str(card_dict["mana_cost"]),
-                card_dict["type_line"],
-                str(card_dict["keywords"]),
-                oracle,
-                card_dict["image_uris"]["png"]
-            ])
+    card_data = d_b.execute(
+        "SELECT * FROM Cards WHERE name LIKE ?", [card_dict["name"]]).fetchone()
+    if card_data is None:
+        if "power" in card_dict.keys():
+            d_b.execute("INSERT INTO Cards (name, colors, color_identity, "+
+                "cmc, mana_cost, type, keywords, oracle, image_uri, layout,"+
+                " power, toughness) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);", [
+                    card_dict["name"],
+                    str(card_dict["colors"]),
+                    str(card_dict["color_identity"]),
+                    card_dict["cmc"],
+                    str(card_dict["mana_cost"]),
+                    card_dict["type_line"],
+                    str(card_dict["keywords"]),
+                    card_dict["oracle_text"],
+                    card_dict["image_uris"]["png"],
+                    card_dict["layout"],
+                    card_dict["power"],
+                    card_dict["toughness"]
+                ])
+        else:
+            d_b.execute(
+                "INSERT INTO Cards ("+
+                "name, colors, color_identity, cmc, mana_cost, "+
+                "type, keywords, oracle, image_uri, layout) "+
+                "VALUES (?,?,?,?,?,?,?,?,?,?);", [
+                    card_dict["name"],
+                    str(card_dict["colors"]),
+                    str(card_dict["color_identity"]),
+                    card_dict["cmc"],
+                    str(card_dict["mana_cost"]),
+                    card_dict["type_line"],
+                    str(card_dict["keywords"]),
+                    card_dict["oracle_text"],
+                    card_dict["image_uris"]["png"],
+                    card_dict["layout"]
+                ])
 
-# def two_faced_card_handler():
-#     print("Kaksipuoleisten korttien tuki tulossa toivottavasti myöhemmin")
+# Kortin muotoilun/leikkauksen tunnistaminen
+def parse_card_data(card_dict:dict):
+    if "oracle_text" not in card_dict.keys():
+        card_dict.update({"oracle_text": ''})
+    if card_dict["layout"] == "normal":
+        api_data_to_db(card_dict)
+        get_image(card_dict)
+        return card_dict
+    if card_dict["layout"] == "transform" or card_dict["layout"] == "modal_dfc":
+        two_faced_card(card_dict)
+    if card_dict["layout"] == "split":
+        split_card(card_dict)
+        return card_dict
+
+def two_faced_card(card_dict):
+    card_dict_front = {
+        "name": card_dict["card_faces"][0]["name"],
+        "colors": card_dict["card_faces"][0]["colors"],
+        "color_identity": card_dict["color_identity"],
+        "cmc": card_dict["cmc"],
+        "mana_cost": card_dict["card_faces"][0]["mana_cost"],
+        "type_line":card_dict["card_faces"][0]["type_line"],
+        "keywords": card_dict["keywords"],
+        "oracle_text": card_dict["card_faces"][0]["oracle_text"],
+        "image_uris": {"png": card_dict["card_faces"][0]["image_uris"]["png"]},
+        "layout": card_dict["layout"],
+        "power": "",
+        "toughness": ""
+    }
+    if "power" in card_dict["card_faces"][0].keys():
+        card_dict_front.update({
+            "power":card_dict["card_faces"][0]["power"],
+            "toughness":card_dict["card_faces"][0]["toughness"]
+            })
+    card_dict_back = {
+        "name": card_dict["card_faces"][1]["name"],
+        "colors": card_dict["card_faces"][1]["colors"],
+        "color_identity": card_dict["color_identity"],
+        "cmc": card_dict["cmc"],
+        "mana_cost": card_dict["card_faces"][1]["mana_cost"],
+        "type_line":card_dict["card_faces"][1]["type_line"],
+        "keywords": card_dict["keywords"],
+        "oracle_text": card_dict["card_faces"][1]["oracle_text"],
+        "image_uris": {"png": card_dict["card_faces"][1]["image_uris"]["png"]},
+        "layout": "backside",
+        "power": "",
+        "toughness": ""
+    }
+    if "power" in card_dict["card_faces"][1].keys():
+        card_dict_back.update({
+            "power":card_dict["card_faces"][1]["power"],
+            "toughness":card_dict["card_faces"][1]["toughness"]
+            })
+    api_data_to_db(card_dict_front)
+    api_data_to_db(card_dict_back)
+    get_image(card_dict_front)
+    get_image(card_dict_back)
+    return card_dict
+
+def split_card(card_dict):
+    for i in card_dict["card_faces"]:
+        card_dict["oracle_text"] += i["oracle_text"] + "//"
+    api_data_to_db(card_dict)
+    get_image(card_dict)
+    return card_dict
+
+def get_image(card_dict):
+    name_for_api = card_dict["name"].replace(" ", "+")
+    name_for_api = name_for_api.replace("/", "")
+    name_for_api = name_for_api.replace(",", "")
+    image = requests.get(
+    card_dict["image_uris"]["png"],allow_redirects=True, timeout=10)
+    with open("src/data/fetched_cards/"+name_for_api.lower()+".png", 'wb') as pic:
+        pic.write(image.content)

@@ -39,3 +39,12 @@ class TestCube(unittest.TestCase):
         self.cube.add_card("Sol Ring")
         self.cube.add_cards_from_list("Testilista.txt")
         self.assertEqual(len(self.cube.collection),11)
+    
+    def test_adding_transform_card(self):
+        self.cube.add_card("Aberrant Researcher")
+        self.assertEqual(len(self.cube.collection),2)
+    
+    def test_adding_modal_card(self):
+        self.cube.add_card("Alrund, God of the Cosmos")
+        self.assertEqual(len(self.cube.collection),2)
+    
