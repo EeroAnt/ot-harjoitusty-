@@ -1,2 +1,2 @@
 
-![](./testikattavuus.png)
+![](testikattavuus.png)
